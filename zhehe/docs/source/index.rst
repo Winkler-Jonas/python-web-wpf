@@ -40,4 +40,3 @@ Letzte Änderung: 06.07.2020
    :numbered:
 
    project_structure/index
-   scratch/glob
