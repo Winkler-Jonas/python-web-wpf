@@ -1,6 +1,5 @@
-===============
 Projektstruktur
-===============
+###############
 
 .. toctree::
    :maxdepth: 1

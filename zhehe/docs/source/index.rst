@@ -29,9 +29,10 @@ Dieser Text steht unter der Creative Commons Lizenz
 
 .. toctree::
    :titlesonly:
-   :caption: Inhalt
+   :caption: Inhaltsverzeichnis
    :maxdepth: 2
    :numbered:
 
    project_structure/index
    documentation/index
+   bibliography/index
