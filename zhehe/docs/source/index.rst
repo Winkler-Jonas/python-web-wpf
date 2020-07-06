@@ -8,7 +8,7 @@ WPF Python Webentwicklung
 | Sommersemester 2020
 
 .. list-table:: Autor
-    :widths: 10 10 30 5 10
+    :widths: 10 10 30 5
     :header-rows: 1
 
     * - Vorname
@@ -34,3 +34,4 @@ Dieser Text steht unter der Creative Commons Lizenz
    :numbered:
 
    project_structure/index
+   documentation/index
