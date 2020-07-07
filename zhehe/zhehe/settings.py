@@ -25,7 +25,7 @@ SECRET_KEY = '2l#gti87#&g+4)ncsy(yz*fm)s($b3r61*4x5ib)hx*(+^eq34'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'zhehe_convert'
 ]
 
 MIDDLEWARE = [
