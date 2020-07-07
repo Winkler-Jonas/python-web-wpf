@@ -1,5 +1,5 @@
 build
 media
-.idea
+.idea/*
 */db.sqlite3
 __pycache__

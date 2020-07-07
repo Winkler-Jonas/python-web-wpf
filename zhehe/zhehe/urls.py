@@ -14,8 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-]
+    path('', include('zhehe_index.urls'), name='zhehe_index'),
+    path('convert/', include('zhehe_convert.urls'), name='zhehe_convert'),
+    path('admin/', admin.site.urls, name='zhehe_admin'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
