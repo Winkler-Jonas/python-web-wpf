@@ -1,0 +1,56 @@
+header {
+    background-color: #191919;
+}
+
+header ul {
+    margin: 0;
+}
+
+header a,
+header li {
+    padding: 1.4rem 10px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+section#intro-header .wrap-headline {
+    position: relative;
+    margin: 0 auto;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+section#about img {
+    margin-top: 6.5rem;
+    margin-bottom: 5rem;
+}
+
+section#about h3 {
+    margin-top: 10rem;
+}
+
+
+section#footer {
+    padding: 50px 10%;
+    background-color: #191919;
+    color: #ADADAD;
+}
+
+section#footer a {
+    color: #ADADAD;
+    text-decoration: none !important;
+    background-color: transparent;
+}
+
+section#footer ul.quick-links li {
+    padding: 20px 5px;
+    -webkit-transition: .5s all ease;
+    -moz-transition: .5s all ease;
+    transition: .5s all ease;
+}
+
+section#footer ul.quick-links li:hover {
+    padding: 3px 0;
+    margin-left: 5px;
+    font-weight: 700;
+}

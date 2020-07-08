@@ -1,17 +1,30 @@
-<!DOCTYPE html>
+{% extends 'zhehe_index/layout.html' %}
 
+<!-- Django load static content -->
 {% load static %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- Page title shown in Browser -->
+{% block html_title %}
+    Zhehe
+{% endblock %}
 
-<object type="image/svg+xml" data="{% static 'img/zhehe-logo.svg' %}">
-    <div style="background-image: url({% static 'img/zhehe-logo.png' %}); width 100px; height:100px;" role="img" aria-label="zhehe-logo">
-</object>
+{% block additional_styles %}
+    <link rel="stylesheet" href="{% static 'css/index_main.css' %}">
+{% endblock %}
 
-</body>
-</html>
+{% block zhehe-logo %}
+    <object type="image/svg+xml" data="{% static 'img/zhehe-logo.svg' %}">
+        <div style="background-image: url({% static 'img/zhehe-logo.png' %}); width 100px; height:100px;" role="img"
+             aria-label="zhehe-logo">
+    </object>
+{% endblock %}
+
+
+
+
+{% block footer-logo %}
+    <object type="image/svg+xml" data="{% static 'img/zhehe-logo-bw.svg' %}">
+        <div style="background-image: url({% static 'img/zhehe-logo-bw.png' %}); width 100px; height:100px;" role="img"
+             aria-label="zhehe-logo">
+    </object>
+{% endblock %}

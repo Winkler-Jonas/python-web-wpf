@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% comment %}Insert page title (default is Zhehe){% endcomment %}
+        {% block html_title %}Zhehe{% endblock %}
+    </title>
+    <!-- To have less static content I will mostly use CDNs in this project -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    {% comment %}Insert additional CSS-styles and JS{% endcomment %}
+    {% block additional_styles %}{% endblock %}
+    {% block additional_js %}{% endblock %}
+
+</head>
+<body>
+<header>
+    <div class="container">
+        <!-- row 1 -->
+        <div class="row">
+            <a class="brand float-left" href=".">Zhehe</a>
+            <ul class="list-inline ml-auto">
+                <li class="list-inline-item">
+                    <a href="#features">Features</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#pricing">Pricing</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#contact">Contact</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#about">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<section id="intro-header">
+    <div class="container">
+        <!-- row 2 -->
+        <div class="row">
+            <div class="wrap-headline">
+                {% comment %}Insert centered Zhehe logo{% endcomment %}
+                {% block zhehe-logo %}{% endblock %}
+                <hr>
+                <ul class="list-inline ml-auto text-center">
+                    <li class="list-inline-item">
+                        <a class="btn btn-secondary btn-lg" href="#" role="button">Sign in</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="btn btn-primary btn-lg" href="#" role="button">Sign up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="about">
+    <div class="container">
+        <!-- row 3 -->
+        <div class="row">
+            <div class="col-sm-6">
+                {% comment %} Insert about image on left hand side {% endcomment %}
+                {% block about-overview-img %}{% endblock %}
+            </div>
+            <div class="col-sm-6">
+                {% comment %} Insert about header on left hand side {% endcomment %}
+                <h3>{% block about-overview-header %}{% endblock %}</h3>
+                <p>
+                    {% comment %} Insert about text on left hand side {% endcomment %}
+                    {% block about-overview-text %}{% endblock %}
+                </p>
+            </div>
+        </div>
+        <hr>
+        <!-- row 4 -->
+        <div class="row">
+            <div class="col-sm-6">
+                {% comment %} Insert about header on right hand side {% endcomment %}
+                <h3>{% block about-manage-header %}{% endblock %}</h3>
+                <p>
+                    {% comment %} Insert about text on right hand side {% endcomment %}
+                    {% block about-manage-text %}{% endblock %}
+                </p>
+            </div>
+            <div class="col-sm-6">
+                {% comment %} Insert about image on right hand side {% endcomment %}
+                {% block about-manage-img %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="footer">
+    <div class="row">
+        <div class="container text-center">
+            {% block footer-logo %}{% endblock %}
+            <ul class="list-inline ml-auto justify-content-center quick-links">
+                <li class="list-inline-item">
+                    <a href="https://zhehe.readthedocs.io/en/latest/"><i class="fa fa-angle-double-right"></i>Dokumentation</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#About"><i class="fa fa-angle-double-right"></i>About</a>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#Contact"><i class="fa fa-angle-double-right"></i>Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row align-items-end">
+        <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+            <p class="h6">© Copyright 2020 All right Reversed, Jonas Winkler</p>
+        </div>
+    </div>
+</section>
+</body>
+</html>
