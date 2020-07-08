@@ -12,6 +12,15 @@
     <link rel="stylesheet" href="{% static 'css/index_main.css' %}">
 {% endblock %}
 
+
+{% block header-logo %}
+    <object type="image/svg+xml" data="{% static 'img/zhehe-logo-wb.svg' %}">
+        <div style="background-image: url({% static 'img/zhehe-logo-wb.png' %}); width 80px; height:80px;" role="img"
+             aria-label="zhehe-logo">
+    </object>
+{% endblock %}
+
+
 {% block zhehe-logo %}
     <object type="image/svg+xml" data="{% static 'img/zhehe-logo.svg' %}">
         <div style="background-image: url({% static 'img/zhehe-logo.png' %}); width 100px; height:100px;" role="img"
