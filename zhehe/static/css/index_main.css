@@ -17,7 +17,6 @@ section#intro-header .wrap-headline {
     position: relative;
     margin: 0 auto;
     padding-top: 20%;
-    padding-bottom: 20%;
 }
 
 section#about img {
@@ -53,4 +52,9 @@ section#footer ul.quick-links li:hover {
     padding: 3px 0;
     margin-left: 5px;
     font-weight: 700;
+}
+
+.img-about{
+    width: 100%;
+    max-width: 600px;
 }

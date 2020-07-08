@@ -12,28 +12,58 @@
     <link rel="stylesheet" href="{% static 'css/index_main.css' %}">
 {% endblock %}
 
+<!-- Header Section -->
 
 {% block header-logo %}
     <object type="image/svg+xml" data="{% static 'img/zhehe-logo-wb.svg' %}">
-        <div style="background-image: url({% static 'img/zhehe-logo-wb.png' %}); width 80px; height:80px;" role="img"
-             aria-label="zhehe-logo">
+        <div style="background-image: url({% static 'img/zhehe-logo-wb.png' %}); width 80px; height:80px;" role="img" aria-label="zhehe-logo">
+        </div>
     </object>
 {% endblock %}
 
+<!-- Main Section -->
 
 {% block zhehe-logo %}
     <object type="image/svg+xml" data="{% static 'img/zhehe-logo.svg' %}">
-        <div style="background-image: url({% static 'img/zhehe-logo.png' %}); width 100px; height:100px;" role="img"
-             aria-label="zhehe-logo">
+        <div style="background-image: url({% static 'img/zhehe-logo.png' %}); width 100px; height:100px;" role="img" aria-label="zhehe-logo">
+        </div>
     </object>
 {% endblock %}
 
 
+<!-- About Section -->
 
+{% block about-overview-img %}
+    <img src="{% static 'img/test-about-png.png' %}" alt="" class="img-about">
+{% endblock %}
+
+{% block about-overview-header %}
+    This is a header
+{% endblock %}
+
+{% block about-overview-text %}
+    Und hier steht dann noch Text.
+{% endblock %}
+
+<!-- Second about row -->
+
+{% block about-manage-header %}
+    This is a header
+{% endblock %}
+
+{% block about-manage-text %}
+    Und hier steht dann noch Text.
+{% endblock %}
+
+{% block about-manage-img %}
+    <img src="{% static 'img/test-about-png.png' %}" alt="" class="img-about">
+{% endblock %}
+
+<!-- Footer -->
 
 {% block footer-logo %}
     <object type="image/svg+xml" data="{% static 'img/zhehe-logo-bw.svg' %}">
-        <div style="background-image: url({% static 'img/zhehe-logo-bw.png' %}); width 100px; height:100px;" role="img"
-             aria-label="zhehe-logo">
+        <div style="background-image: url({% static 'img/zhehe-logo-bw.png' %}); width 100px; height:100px;" role="img" aria-label="zhehe-logo">
+        </div>
     </object>
 {% endblock %}
