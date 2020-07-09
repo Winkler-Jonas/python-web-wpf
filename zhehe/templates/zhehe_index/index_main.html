@@ -3,6 +3,9 @@
 <!-- Django load static content -->
 {% load static %}
 
+<!-- Django load crispy forms-->
+{% load crispy_forms_tags %}
+
 <!-- Page title shown in Browser -->
 {% block html_title %}
     Zhehe
@@ -16,7 +19,8 @@
 
 {% block header-logo %}
     <object type="image/svg+xml" data="{% static 'img/zhehe-logo-wb.svg' %}">
-        <div style="background-image: url({% static 'img/zhehe-logo-wb.png' %}); width 80px; height:80px;" role="img" aria-label="zhehe-logo">
+        <div style="background-image: url({% static 'img/zhehe-logo-wb.png' %}); width 80px; height:80px;" role="img"
+             aria-label="zhehe-logo">
         </div>
     </object>
 {% endblock %}
@@ -25,7 +29,8 @@
 
 {% block zhehe-logo %}
     <object type="image/svg+xml" data="{% static 'img/zhehe-logo.svg' %}">
-        <div style="background-image: url({% static 'img/zhehe-logo.png' %}); width 100px; height:100px;" role="img" aria-label="zhehe-logo">
+        <div style="background-image: url({% static 'img/zhehe-logo.png' %}); width 100px; height:100px;" role="img"
+             aria-label="zhehe-logo">
         </div>
     </object>
 {% endblock %}
@@ -59,11 +64,22 @@
     <img src="{% static 'img/test-about-png.png' %}" alt="" class="img-about">
 {% endblock %}
 
+<!-- Newsletter Form -->
+
+{% block newsletter %}
+    <section id="newsletter" class="text-center">
+        <h4>Bleiben Sie auf dem neuesten Stand. Abonnieren Sie jetzt unseren Newsletter.</h4>
+        {% crispy form %}
+    </section>
+{% endblock %}
+
+
 <!-- Footer -->
 
 {% block footer-logo %}
     <object type="image/svg+xml" data="{% static 'img/zhehe-logo-bw.svg' %}">
-        <div style="background-image: url({% static 'img/zhehe-logo-bw.png' %}); width 100px; height:100px;" role="img" aria-label="zhehe-logo">
+        <div style="background-image: url({% static 'img/zhehe-logo-bw.png' %}); width 100px; height:100px;" role="img"
+             aria-label="zhehe-logo">
         </div>
     </object>
 {% endblock %}

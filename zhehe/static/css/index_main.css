@@ -28,7 +28,6 @@ section#about h3 {
     margin-top: 10rem;
 }
 
-
 section#footer {
     padding: 50px 10%;
     background-color: #191919;
@@ -54,7 +53,36 @@ section#footer ul.quick-links li:hover {
     font-weight: 700;
 }
 
-.img-about{
+.img-about {
     width: 100%;
     max-width: 600px;
+}
+
+.hidden-element {
+    display: none;
+}
+
+section#newsletter {
+    border-top: 1px solid #E0E0E0;
+    padding-top: 3.2em;
+    margin-top: 2em;
+}
+
+section#newsletter h4 {
+    padding: 1em;
+}
+
+section#newsletter form {
+    padding: 1em;
+    margin-top: 2em;
+    margin-bottom: 5.5em;
+    margin-left: 20px
+}
+
+section#newsletter input{
+    margin-left: 20px;
+}
+
+section#newsletter label{
+    font-size: 0;
 }

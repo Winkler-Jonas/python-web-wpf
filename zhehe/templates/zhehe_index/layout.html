@@ -51,12 +51,28 @@
                 <hr>
                 <ul class="list-inline ml-auto text-center">
                     <li class="list-inline-item">
-                        <a class="btn btn-secondary btn-lg" href="#" role="button">Sign in</a>
+                        <a id="sign-btn" class="btn btn-secondary btn-lg" href="#" role="button">Sign in</a>
                     </li>
                     <li class="list-inline-item">
                         <a class="btn btn-primary btn-lg" href="#" role="button">Sign up</a>
                     </li>
                 </ul>
+                <form id="signin" class="form-inline text-center hidden-element">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">@</div>
+                            <input type="text" class="form-control" id="signin-email"
+                                   placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">*</div>
+                            <input type="password" class="form-control" id="signin-password" placeholder="Password">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Sign in</button>
+                </form>
             </div>
         </div>
     </div>
@@ -96,13 +112,17 @@
         </div>
     </div>
 </section>
+
+{% block newsletter %}{% endblock %}
+
 <section id="footer">
     <div class="row">
         <div class="container text-center">
             {% block footer-logo %}{% endblock %}
             <ul class="list-inline ml-auto justify-content-center quick-links">
                 <li class="list-inline-item">
-                    <a href="https://zhehe.readthedocs.io/en/latest/" target="_blank"><i class="fa fa-angle-double-right"></i>Dokumentation</a>
+                    <a href="https://zhehe.readthedocs.io/en/latest/" target="_blank"><i
+                            class="fa fa-angle-double-right"></i>Dokumentation</a>
                 </li>
                 <li class="list-inline-item">
                     <a href="#About"><i class="fa fa-angle-double-right"></i>About</a>
@@ -119,5 +139,8 @@
         </div>
     </div>
 </section>
+
+
+
 </body>
 </html>
