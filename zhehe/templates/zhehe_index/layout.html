@@ -12,12 +12,14 @@
     <!-- To have less static content I will mostly use CDNs in this project -->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <!-- Bootstrap JS -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
     {% comment %}Insert additional CSS-styles and JS{% endcomment %}
     {% block additional_styles %}{% endblock %}
@@ -57,22 +59,6 @@
                         <a class="btn btn-primary btn-lg" href="#" role="button">Sign up</a>
                     </li>
                 </ul>
-                <form id="signin" class="form-inline text-center hidden-element">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-addon">@</div>
-                            <input type="text" class="form-control" id="signin-email"
-                                   placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-addon">*</div>
-                            <input type="password" class="form-control" id="signin-password" placeholder="Password">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-default">Sign in</button>
-                </form>
             </div>
         </div>
     </div>
@@ -128,7 +114,8 @@
                     <a href="#About"><i class="fa fa-angle-double-right"></i>About</a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#Contact"><i class="fa fa-angle-double-right"></i>Contact</a>
+                    <a href="#Contact" type="button" data-toggle="modal" data-target="#myModal"><i
+                            class="fa fa-angle-double-right"></i>Contact</a>
                 </li>
             </ul>
         </div>
@@ -140,7 +127,27 @@
     </div>
 </section>
 
+<section id="contact" class="container">
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
 
+                <div class="modal-header">
+                    <h4 class="modal-title">Kontaktformular</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row col-sm-12">
+                        <div>
+                            {% block contact %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 </body>
 </html>

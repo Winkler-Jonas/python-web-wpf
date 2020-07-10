@@ -69,10 +69,15 @@
 {% block newsletter %}
     <section id="newsletter" class="text-center">
         <h4>Bleiben Sie auf dem neuesten Stand. Abonnieren Sie jetzt unseren Newsletter.</h4>
-        {% crispy form %}
+        {% crispy newsletter %}
     </section>
 {% endblock %}
 
+<!-- Contact Form -->
+
+{% block contact %}
+    {% crispy contact %}
+{% endblock %}
 
 <!-- Footer -->
 
