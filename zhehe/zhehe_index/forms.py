@@ -20,8 +20,8 @@ class Newsletter(forms.Form):
         self.helper.form_class = 'form-inline justify-content-center'
         self.helper.layout = Layout(
 
-            Div('name', css_class=['form-group', 'justify-content-center']),
-            Div('email', css_class=['form-group', 'justify-content-center']),
+            Div('name', css_class='form-group justify-content-center'),
+            Div('email', css_class='form-group justify-content-center'),
             bootstrap.FormActions(
                 layout.Submit('submit', 'Abonnieren!', css_class='btn btn-primary'))
         )
@@ -54,6 +54,6 @@ class Contact(forms.Form):
             Div('note', css_class='form-group'),
             Div('newsletter', css_class='form-group'),
             bootstrap.FormActions(
-                layout.Submit('submit', 'Senden', css_class=['form-group', 'btn', 'btn-success', 'btn-lg'])
+                layout.Submit('submit', 'Senden', css_class='form-group btn btn-success btn-lg')
             )
         )

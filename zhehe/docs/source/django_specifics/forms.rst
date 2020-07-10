@@ -37,10 +37,7 @@ Um das Package unter Django zu nutzen, muss es unter **settings.py** zu den Apps
 .. _Crispy-Forms-Laden:
 
 Um die crispy forms nun auch in den Templates verwenden zu können, müssen diese wie static files geladen werden.
-
-.. code-block:: python
-
-    {% load crispy_forms_tags %}
+``{% load crispy_forms_tags %}``
 
 Forms erstellen
 ---------------
