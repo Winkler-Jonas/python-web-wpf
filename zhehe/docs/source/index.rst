@@ -34,5 +34,6 @@ Dieser Text steht unter der Creative Commons Lizenz
    :numbered:
 
    project_structure/index
+   django_specifics/index
    documentation/index
    bibliography/index
