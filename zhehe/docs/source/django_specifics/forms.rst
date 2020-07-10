@@ -116,12 +116,12 @@ in der **views.py** druchgeführt werden. Hier ein Beispiel, wie dies druchgefü
             # Mithilfe des Context-Dictionaries in der render-funktion, kann die Form an das Template geschickt werden
             return render(request=request, template_name=template_name, status=200, context={'form': form})
 
+template.html
+^^^^^^^^^^^^^
+
 Anschließend muss die Form nur noch in das Template eingebunden werden. Dies ist vergleichsweiße einfach, da bereits alle
 wichtigen Styles übergeben wurden. Um die **crispy_forms** in einem Template nutzen zu können, müssen diese zunächst
 :ref:`geladen<Crispy-Forms-Laden>` werden.
-
-template.html
-^^^^^^^^^^^^^
 
 .. code-block:: html
 
