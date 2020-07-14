@@ -1,0 +1,106 @@
+{% extends 'zhehe_convert/layout.html' %}
+
+<!-- Django load static content -->
+{% load static %}
+
+<!-- Django load crispy forms-->
+{% load crispy_forms_tags %}
+
+<!-- Page title shown in Browser -->
+{% block html_title %}
+    Zhehe
+{% endblock %}
+
+{% block additional_styles %}
+    <link rel="stylesheet" href="{% static 'css/new_doc.css' %}">
+    <link rel="stylesheet" href="{% static 'css/card-style.css' %}">
+{% endblock %}
+
+{% block page_content %}
+    {% comment %}
+    This card is used to create new documents and save them
+    to the users collection later on
+    {% endcomment %}
+    <div class="card text-white bg-dark mb-3">
+        <div class="card-body mt-3">
+            <div class="row">
+                <div class="col-1">
+                    <a class="circle" href="{% url 'new_doc' %}" role="button"></a>
+                </div>
+                <div class="col-11">
+                    <h3>
+                        Erstellen Sie ein neues Dokument
+                    </h3>
+                    <p>
+                        Wenn Sie ein neues PDF Dokument mit Markdown oder RST erstellen möchten, klicken Sie<br>
+                        auf das
+                        <ins>Plus-Icon</ins>
+                        . Hier können Sie Ihre Dokument einfügen oder ein neues Dokument von
+                        Grund auf aufbauen.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% comment %}
+    These cards show the documents of the user if any where created.
+    If the user has no documents as of yet, this space will be blank.
+    {% endcomment %}
+    {% if documents %}
+        <div class="card-columns">
+            {% for document in documents %}
+                <div class="card text-white bg-dark border-primary mb-3">
+                    <div class="card-horizontal">
+                        <div class="img-square-wrapper">
+                            <img class="img-responsive" style="width: 100%; object-fit: cover;"
+                                 src="{% static 'img/9_3_0.png' %}" alt="Preview-Image">
+                        </div>
+                        <div class="card-body">
+                            <!-- Card Header -->
+                            <h4 class="card-title">{{ document.document_name }}</h4>
+                            <!-- Card Text -->
+                            {% if document.document_info %}
+                                <p class="card-text">
+                                    {{ document.document_info }}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <small class="text-muted">
+                                    Editiert:
+                                    {% if document.document_date_edit %}
+                                        {{ document.document_date_edit }}
+                                    {% elif document.document_date_added %}
+                                        {{ document.document_date_added }}
+                                    {% else %}
+                                        Unbekannt
+                                    {% endif %}
+                                </small>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn card-btn" role="button" href="{% url 'download' document.id %}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn card-btn" role="button" href="{% url 'download' document.id %}">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn card-btn" role="button" href="{% url 'download' document.id %}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+

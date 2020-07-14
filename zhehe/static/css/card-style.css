@@ -1,0 +1,18 @@
+.card-btn {
+    background: #9b9b9b;
+}
+
+.card-btn:hover {
+    background: black;
+!important;
+}
+
+.card-footer {
+    position: absolute;
+    bottom: 0;
+}
+
+.card-horizontal {
+  display: flex;
+  flex: 1 1 auto;
+}

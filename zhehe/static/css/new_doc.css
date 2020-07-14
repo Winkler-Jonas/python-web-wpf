@@ -1,0 +1,45 @@
+.circle {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    /*border: solid 5px #ADADAD;*/
+    display: block;
+    background-color: transparent;
+    position: relative;
+}
+
+.circle::after {
+    content: " ";
+    position: absolute;
+    display: block;
+    background-color: #ADADAD;
+    height: 20px;
+    margin-top: -10px;
+    top: 50%;
+    left: 5px;
+    right: 5px;
+    z-index: 9;
+}
+
+.circle:hover::before {
+    transform: rotate(90deg);
+    transition-duration: 1s;
+}
+
+.circle:hover::after {
+    transform: rotate(-90deg);
+    transition-duration: 1s;
+}
+
+.circle::before {
+    content: " ";
+    position: absolute;
+    display: block;
+    background-color: #ADADAD;
+    width: 20px;
+    margin-left: -10px;
+    left: 50%;
+    top: 5px;
+    bottom: 5px;
+    z-index: 9;
+}
