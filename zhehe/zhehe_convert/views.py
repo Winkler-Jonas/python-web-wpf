@@ -1,9 +1,12 @@
 from django.shortcuts import render, HttpResponse
 
+from .forms import TextInput
+
 # Create your views here.
 
 
 def index(request):
-    template_name: str = ""
-    return HttpResponse('<h1>Some other Text</h1>')
-    # return render(request=request, template_name=template_name, status=200)
+    template_name: str = "zhehe_convert/convert_main.html"
+    text_area = TextInput
+
+    return render(request=request, template_name=template_name, status=200, context={'form': text_area})

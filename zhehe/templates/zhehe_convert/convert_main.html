@@ -1,0 +1,74 @@
+{% extends 'zhehe_convert/layout.html' %}
+
+<!-- Django load static content -->
+{% load static %}
+
+<!-- Django load crispy forms-->
+{% load crispy_forms_tags %}
+
+<!-- Page title shown in Browser -->
+{% block html_title %}
+    Zhehe
+{% endblock %}
+
+{% block additional_styles %}
+    <link rel="stylesheet" href="{% static 'css/image-view.css' %}">
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="row h-75">
+        <div class="col-sm-6" id="pdf-preview">
+            <div id="demo" class="carousel slide" data-interval="false">
+
+                <!-- Indicators -->
+                <ul class="carousel-indicators">
+                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                    <li data-target="#demo" data-slide-to="1"></li>
+                    <li data-target="#demo" data-slide-to="2"></li>
+                </ul>
+
+                <!-- The slideshow -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'img/9_0_0.png' %}" class="img-fluid" alt="Los Angeles">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img/9_1_0.png' %}" class="img-fluid" alt="Chicago">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img/9_3_0.png' %}" class="img-fluid" alt="New York">
+                    </div>
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+
+            </div>
+        </div>
+        <div class="col-sm-6 mx-auto justify-content-center ">
+            {% crispy form %}
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Convertieren</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Speichern</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+{% endblock %}
+

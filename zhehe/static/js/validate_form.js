@@ -10,7 +10,8 @@ $(document).ready(function () {
         } else {
             $form.find('.form-group').addClass('is-valid').removeClass('text-danger');
             $('#ContactModal').modal('hide');
-            $form[0].submit();
+            var x = $form[0];
+            return true;
         }
     });
 });
