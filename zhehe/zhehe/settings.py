@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'zhehe_index',
-    'zhehe_convert'
+    'zhehe_user_app'
 ]
 
 MIDDLEWARE = [
