@@ -37,7 +37,8 @@
     <nav id="sidebar">
         <div class="sidebar-header">
             <object type="image/svg+xml" data="{% static 'img/zhehe-logo-wb.svg' %}">
-                <div style="background-image: url({% static 'img/zhehe-logo-wb.png' %}); width 80px; height:80px;" role="img" aria-label="zhehe-logo">
+                <div style="background-image: url({% static 'img/zhehe-logo-wb.png' %}); width 80px; height:80px;"
+                     role="img" aria-label="zhehe-logo">
                 </div>
             </object>
         </div>
@@ -121,9 +122,20 @@
                     <span></span>
                     <span></span>
                 </button>
-                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-align-justify"></i>
                 </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'convert' %}">
+                                <i class="fas fa-window-restore toggle-sign"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
 
@@ -151,6 +163,20 @@
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
             $(this).toggleClass('active');
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#navbarSupportedContent').click(function () {
+
+            var toggle_sign = $(this).find(".toggle_sign");
+            if ($(toggle_sign).hasClass("fa-window-restore")) {
+                $(toggle_sign).removeClass("fa-window-restore").addClass("fa-list");
+            } else {
+                $(toggle_sign).addClass("fa-list").removeClass("fa-window-restore");
+            }
         });
     });
 </script>

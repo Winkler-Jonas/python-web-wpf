@@ -17,6 +17,8 @@ def overview(request):
     except Document.DoesNotExist:
         pass    # Ignore
 
+    print(request.GET)
+
     return render(request=request, template_name=template_name, context=context_dict)
 
 
