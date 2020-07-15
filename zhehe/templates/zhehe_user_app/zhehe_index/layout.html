@@ -21,6 +21,12 @@
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
+    <style>
+        .requiredField {
+            display: none;
+        }
+    </style>
+
     {% comment %}Insert additional CSS-styles and JS{% endcomment %}
     {% block additional_styles %}{% endblock %}
     {% block additional_js %}{% endblock %}
@@ -56,7 +62,10 @@
                         <a id="sign-btn" class="btn btn-secondary btn-lg" href="#" role="button">Sign in</a>
                     </li>
                     <li class="list-inline-item">
-                        <a class="btn btn-primary btn-lg" href="#" role="button">Sign up</a>
+                        <a href="#Signup" type="button" data-toggle="modal" data-target="#SignupModal"
+                           class="btn btn-primary btn-lg" role="button">
+                            Sign up
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -114,8 +123,9 @@
                     <a href="#About"><i class="fa fa-angle-double-right"></i>About</a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#Contact" type="button" data-toggle="modal" data-target="#ContactModal"><i
-                            class="fa fa-angle-double-right"></i>Contact</a>
+                    <a href="#Contact" type="button" data-toggle="modal" data-target="#ContactModal">
+                        <i class="fa fa-angle-double-right"></i>Contact
+                    </a>
                 </li>
             </ul>
         </div>
@@ -141,6 +151,49 @@
                     <div class="row col-sm-12">
                         <div>
                             {% block contact %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="signup" class="container">
+    <!-- The Modal -->
+    <div class="modal fade" id="SignupModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Registrierung</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row col-sm-12">
+                        <div class="container">
+                            <form action="/" method="post" class="needs-validation" novalidate>
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="uname">Username:</label>
+                                    <input type="text" class="form-control" id="uname" placeholder="Enter username"
+                                           name="uname" required>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Password:</label>
+                                    <input type="password" class="form-control" id="pwd" placeholder="Enter password"
+                                           name="pswd" required>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                                <div class="form-group form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" name="remember"> I
+                                        agree on blabla.
+                                        <div class="invalid-feedback">Check this checkbox to continue.</div>
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
                         </div>
                     </div>
                 </div>

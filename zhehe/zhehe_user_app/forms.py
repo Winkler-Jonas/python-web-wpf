@@ -77,3 +77,44 @@ class TextInput(forms.Form):
         self.helper.layout = Layout(
             Field('text_area', rows=30, css_class='form-control textarea h-100'),
         )
+
+
+class SignUp(forms.Form):
+    """
+    Custom designed UserSignUp form for bootstrap 4 viewport
+    """
+    name = forms.CharField(
+        label='Vorname',
+        label_suffix='',
+        widget=forms.TextInput(attrs={'placeholder': 'Vorname'}))
+    surname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nachname'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Passwort'}))
+    newsletter = forms.BooleanField(label='Newsletter abonnieren', required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+
+        self.fields['surname'].label = ''
+        self.fields['email'].label = 'Ihre Kontakt Mail Adresse'
+        self.fields['password'].label = 'Passwort'
+
+        self.helper.layout = Layout(
+            Div('name', css_class='form-group'),
+            Div('surname', css_class='form-group'),
+            Div('email', css_class='form-group'),
+            Div('password', css_class='form-group'),
+            Div('newsletter', css_class='form-group'),
+            bootstrap.FormActions(
+                layout.Submit('submit', 'Anmelden', css_class='form-group btn btn-primary btn-lg')
+            )
+        )
+
+    def clean_name(self, *args, **kwargs):
+        name = self.cleaned_data.get('name')
+        if 'abc' not in name:
+            raise forms.ValidationError('Blub')
+        else:
+            return name

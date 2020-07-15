@@ -3,7 +3,7 @@ from typing import Optional, Dict
 from django.db.models import QuerySet
 from django.shortcuts import render
 
-from .forms import Newsletter, Contact, TextInput
+from .forms import Newsletter, Contact, TextInput, SignUp
 from .models import Contact_Info, Subscriber, Document
 
 import logging
@@ -14,20 +14,23 @@ def index(request):
     template_name: str = 'zhehe_user_app/zhehe_index/index_main.html'
     newsletter_form = Newsletter
     contact_form = Contact
+    signup_form = SignUp()
     if request.method == 'POST':
         logger.error('At least we are in the post method')
-        xy = Newsletter(request.POST)
-        if xy.is_valid():
+        signup_form = signup_form = SignUp(request.POST)
+        if signup_form.is_valid():
             logger.error('Hello from Newsletter form')
+            logger.error(signup_form.cleaned_data)
         else:
-            logger.error(xy.errors)
+            logger.error(signup_form.errors)
         if form := Newsletter(request.POST).is_valid():
             logger.error('Hello from Newsletter form')
         elif form := Contact(request.POST).is_valid():
             logger.error('Hello from contact form')
 
     return render(request=request, template_name=template_name, status=200, context={'newsletter': newsletter_form,
-                                                                                     'contact': contact_form})
+                                                                                     'contact': contact_form,
+                                                                                     'signup': signup_form})
 
 
 def overview(request):
