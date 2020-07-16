@@ -1,0 +1,17 @@
+section#contact form {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+section#contact h1 {
+    padding-top: 3rem;
+    text-shadow: 4px 4px 5px #746c6c;
+}
+
+section#contact.asteriskField {
+    display: none;
+}
+
+section#contact button {
+    margin-top: 1rem;
+}

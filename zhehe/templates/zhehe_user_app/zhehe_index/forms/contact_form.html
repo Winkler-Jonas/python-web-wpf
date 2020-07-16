@@ -1,0 +1,135 @@
+{% extends 'zhehe_user_app/zhehe_index/skeleton.html' %}
+
+<!-- Django load static content -->
+{% load static %}
+
+<!-- Django load crispy forms-->
+{% load crispy_forms_tags %}
+{% block additional_css %}
+    <link rel="stylesheet" href="{% static 'css/zhehe_index/contact_form.css' %}">
+{% endblock %}
+
+<!-- Insert Form to page-content block -->
+{% block page-content %}
+    <section id="contact" class="container-fluid h-100">
+        <div class="row justify-content-center align-items-center">
+            <h1>Kontaktformular</h1>
+        </div>
+        </hr>
+        <div class="row justify-content-center align-item-center h-100">
+            <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <form action="{% url 'contact' %}" method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    {% for field in contact %}
+                        {% if field.help_text %}
+                            <div class="form-check">
+                                {{ field }}
+                                {{ field.label_tag }}
+                                {% if field.errors %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="invalid-feedback">
+                                        Eingabe ungültig!
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <div class="form-group">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.errors %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="invalid-feedback">
+                                        Eingabe ungültig!
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="form-group">
+                            <button class="btn btn-success btn-lg"
+                                    type="submit">Absenden
+                            </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% comment %}
+                <form action="{% url 'contact' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="concern">Anliegen</label>
+                        <select name="concern" id="concern" class="form-control">
+                            <option>Verbesserungsvorschlag</option>
+                            <option>Beschwerde</option>
+                            <option>Andere Anliegen</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-name">Vorname</label>
+                        <input class="form-control" type="text" id="contact-name" placeholder="Vorname">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-surname">Nachname</label>
+                        <input class="form-control" type="text" id="contact-surname" placeholder="Nachname">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">E-Mail</label>
+                        <input class="form-control" type="email" id="contact-email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-note">Ihre Nachricht</label>
+                        <textarea class="form-control" id="contact-note" rows="8" style="resize: none"
+                                  placeholder="Geben Sie Ihre Nachricht ein"></textarea>
+                    </div>
+                    <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" value="">
+                                Ich möchte regelmäßig Updates über <ins>Zhehe</ins> erhalten.
+                            </label>
+                        </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-success btn-lg"
+                                    type="submit">Absenden
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>{% endcomment %}
+    </section>
+
+{% endblock %}
+
+{% block additional_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script>
+        // Disable form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Get the forms we want to add validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+{% endblock %}

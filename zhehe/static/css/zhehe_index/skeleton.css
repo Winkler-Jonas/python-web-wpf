@@ -1,0 +1,118 @@
+header {
+    background-color: #191919;
+}
+
+header ul {
+    margin: 0;
+}
+
+header a,
+header li {
+    padding: 1.4rem 1rem;
+    margin-top: 1rem;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+section#intro-header .wrap-headline {
+    position: relative;
+    padding-top: 10%;
+    margin: 0 auto;
+}
+
+section#intro-header {
+    background-size: cover;
+}
+
+section#intro-header h1,
+section#intro-header h2 {
+    color: #FFF;
+}
+
+section#intro-header h2 {
+    font-size: 1.5rem;
+}
+
+section#intro-header hr {
+    width: 10%;
+}
+
+section#intro-header .btn-default {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+section#about img {
+    margin-top: 6.5rem;
+    margin-bottom: 5rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+section#about h3 {
+    margin-top: 10rem;
+}
+
+section#newsletter {
+    border-top: 1px solid #E0E0E0;
+    padding-top: 3.2em;
+    margin-top: 2em;
+}
+
+section#newsletter h4 {
+    padding: 1em;
+}
+
+section#newsletter form {
+    padding: 1em;
+    margin-top: 2em;
+    margin-bottom: 5.5em;
+    margin-left: 20px
+}
+
+section#newsletter input{
+    margin-left: 20px;
+}
+
+section#newsletter label{
+    font-size: 0;
+}
+
+section#footer {
+    padding: 50px 10%;
+    background-color: #191919;
+    color: #ADADAD;
+}
+
+section#footer a {
+    color: #ADADAD;
+    text-decoration: none !important;
+    background-color: transparent;
+}
+
+section#footer ul.quick-links li {
+    padding: 20px 5px;
+    -webkit-transition: .5s all ease;
+    -moz-transition: .5s all ease;
+    transition: .5s all ease;
+}
+
+section#footer ul.quick-links li:hover {
+    padding: 3px 0;
+    margin-left: 5px;
+    font-weight: 700;
+}
+
+.ref-img {
+    padding: 1px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.span-img {
+    display: inline-block;
+}
+
+.obj-img {
+    position: relative;
+    z-index: -1;
+}

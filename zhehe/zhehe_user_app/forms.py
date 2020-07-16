@@ -3,12 +3,17 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field
 from crispy_forms import bootstrap, layout
 
+CONCERNS: tuple = (('', 'Wählen Sie ein Anliegen'),
+                   ('VV', 'Verbesserungsvorschlag'),
+                   ('B', 'Beschwerde'),
+                   ('AA', 'Andere Anliegen'))
+
 
 class Newsletter(forms.Form):
     """
     Custom designed newsletter form for bootstrap 4 viewport
     """
-    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name'}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name', 'class': 'form-control'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
 
     def __init__(self, *args, **kwargs):
@@ -31,32 +36,31 @@ class Contact(forms.Form):
     """
     Custom designed contact form for bootstrap 4 viewport
     """
-    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Vorname', 'label': 'Vorname'}))
-    surname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nachname', 'label': 'Nachname'}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
-    note = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Ihre Nachricht', 'rows': 3}))
-    newsletter = forms.BooleanField(label='Newsletter abonnieren', required=False)
+    concern = forms.ChoiceField(choices=CONCERNS,
+                                label='Anliegen',
+                                widget=forms.Select(attrs={'class': 'form-control'}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Vorname',
+                                                         'class': 'form-control'}),
+                           label='Vorname',
+                           error_messages={'required': 'Bitte geben Sie Ihren Vornamen ein'})
+    surname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nachname',
+                                                            'class': 'form-control'}),
+                              label='Nachname',
+                              error_messages={'required': 'Bitte geben Sie Ihren Nachnamen ein'})
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email',
+                                                            'class': 'form-control'}),
+                             label='E-Mail',
+                             error_messages={'required': 'Bitte geben Sie eine gültige Email ein'})
+    note = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Ihre Nachricht..',
+                                                        'rows': 8,
+                                                        'class': 'form-control'}),
+                           label='Ihre Nachricht',
+                           error_messages={'required': 'Bitte geben Sie eine Nachricht ein'})
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_class = 'form-horizontal'
-
-        self.fields['name'].label = 'Vorname'
-        self.fields['surname'].label = 'Nachname'
-        self.fields['email'].label = 'Ihre Kontakt Mail Adresse'
-        self.fields['note'].label = 'Ihre Nachrich'
-
-        self.helper.layout = Layout(
-            Div('name', css_class='form-group'),
-            Div('surname', css_class='form-group'),
-            Div('email', css_class='form-group'),
-            Div('note', css_class='form-group'),
-            Div('newsletter', css_class='form-group'),
-            bootstrap.FormActions(
-                layout.Submit('submit', 'Senden', css_class='form-group btn btn-success btn-lg')
-            )
-        )
+    newsletter = forms.BooleanField(label='Ich möchte regelmäßig Updates über Zhehe erhalten.',
+                                    required=False,
+                                    widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+                                    help_text={'required': 'Check-Box'})
 
 
 class TextInput(forms.Form):
@@ -64,6 +68,7 @@ class TextInput(forms.Form):
     Custom designed TxtInput form for bootstrap 4 viewport
     """
     text_area = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Geben Sie hier Ihren Text ein ...'}))
+
     # email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
 
     def __init__(self, *args, **kwargs):
