@@ -14,11 +14,14 @@ header li {
     font-weight: bold;
 }
 
+
 section#intro-header .wrap-headline {
     position: relative;
     padding-top: 10%;
+    padding-bottom: 5%;
     margin: 0 auto;
 }
+
 
 section#intro-header {
     background-size: cover;
@@ -31,10 +34,6 @@ section#intro-header h2 {
 
 section#intro-header h2 {
     font-size: 1.5rem;
-}
-
-section#intro-header hr {
-    width: 10%;
 }
 
 section#intro-header .btn-default {
@@ -69,11 +68,11 @@ section#newsletter form {
     margin-left: 20px
 }
 
-section#newsletter input{
+section#newsletter input {
     margin-left: 20px;
 }
 
-section#newsletter label{
+section#newsletter label {
     font-size: 0;
 }
 
@@ -115,4 +114,8 @@ section#footer ul.quick-links li:hover {
 .obj-img {
     position: relative;
     z-index: -1;
+}
+
+.hidden-element {
+    display: none;
 }

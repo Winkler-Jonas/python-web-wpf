@@ -3,8 +3,11 @@
 <!-- Django load static content -->
 {% load static %}
 
+{% block pagetitle %}
+    Contact
+{% endblock %}
+
 <!-- Django load crispy forms-->
-{% load crispy_forms_tags %}
 {% block additional_css %}
     <link rel="stylesheet" href="{% static 'css/zhehe_index/contact_form.css' %}">
 {% endblock %}
@@ -113,13 +116,10 @@
 {% block additional_js %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script>
-        // Disable form submissions if there are invalid fields
         (function () {
             'use strict';
             window.addEventListener('load', function () {
-                // Get the forms we want to add validation styles to
                 var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
                 var validation = Array.prototype.filter.call(forms, function (form) {
                     form.addEventListener('submit', function (event) {
                         if (form.checkValidity() === false) {

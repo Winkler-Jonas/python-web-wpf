@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Landing page</title>
+    <title>{% block pagetitle %}Landing page{% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <!-- FontAwesome CSS -->
@@ -86,17 +86,48 @@ This is the content block
                             <a id="sign-btn" class="btn btn-secondary btn-lg" href="#" role="button">Sign in</a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#Signup" type="button" data-toggle="modal" data-target="#SignupModal"
-                               class="btn btn-primary btn-lg" role="button">
+                            <a href="{% url 'signup' %}" type="button" class="btn btn-primary btn-lg" role="button">
                                 Sign up
                             </a>
                         </li>
                     </ul>
+                    <!--
+                    Hidden sig-in form
+                    -->
+                    <form action="{% url 'signin' %}" id="signin" class="form-inline hidden-element" method="post" novalidate>
+                        {% csrf_token %}
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        {{ signin.email  }}
+{#                                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">#}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-key"></i>
+                                        </div>
+                                        {{ signin.password  }}
+{#                                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">#}
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary">Sign in</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <!-- End Form -->
                 </div>
+
             </div>
         </div>
     </section>
-
     <section id="about">
         <div class="container">
             <!-- row 3 -->
@@ -126,12 +157,10 @@ This is the content block
             </div>
         </div>
     </section>
-
     <section id="newsletter" class="text-center">
         <h4>Bleiben Sie auf dem neuesten Stand. Abonnieren Sie jetzt unseren Newsletter.</h4>
         {% crispy newsletter %}
     </section>
-
 {% endblock %}
 <!--
 End of the content block
@@ -175,5 +204,14 @@ End of the content block
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 {% comment %}Insert additional JavaScripts{% endcomment %}
 {% block additional_js %}{% endblock %}
+<script>
+    $(document).ready(function () {
+        $('#sign-btn').on('click', function (e) {
+            $(e.currentTarget).closest('ul').hide();
+            $('form#signin').fadeIn('slow');
+        });
+    })
+    ;
+</script>
 </body>
 </html>

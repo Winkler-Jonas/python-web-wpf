@@ -3,7 +3,7 @@ from typing import Optional, Dict
 from django.db.models import QuerySet
 from django.shortcuts import render
 
-from .forms import Newsletter, Contact, TextInput, SignUp
+from .forms import Newsletter, Contact, TextInput, SignUp, SignIn
 from .models import Contact_Info, Subscriber, Document
 
 import logging
@@ -12,23 +12,11 @@ logger = logging.getLogger(__name__)
 
 def index(request):
     template_name: str = 'zhehe_user_app/zhehe_index/skeleton.html'
-    newsletter_form = Newsletter
-    contact_form = Contact
-    signup_form = SignUp()
-    if request.method == 'POST':
-        logger.error('At least we are in the post method')
-        signup_form = signup_form = SignUp(request.POST)
-        if signup_form.is_valid():
-            logger.error('Hello from Newsletter form')
-            logger.error(signup_form.cleaned_data)
-        else:
-            logger.error(signup_form.errors)
-        if form := Newsletter(request.POST).is_valid():
-            logger.error('Hello from Newsletter form')
-        elif form := Contact(request.POST).is_valid():
-            logger.error('Hello from contact form')
+    newsletter_form = Newsletter()
+    signin_form = SignIn()
 
-    return render(request=request, template_name=template_name, status=200, context={'newsletter': newsletter_form})
+    return render(request=request, template_name=template_name, status=200, context={'newsletter': newsletter_form,
+                                                                                     'signin': signin_form})
 
 
 def home(request):
@@ -60,17 +48,29 @@ def contact(request):
     return render(request=request, template_name=template_name, context={'contact': contact_form})
 
 
+def signin(request):
+    template_name: str = 'zhehe_user_app/zhehe_index/forms/signin_form.html'
+
+    newsletter_form = Newsletter()
+    signin_form = SignIn()
+
+    return render(request=request, template_name=template_name, context={'newsletter': newsletter_form,
+                                                                         'signin': signin_form})
+
+
 def signup(request):
-    template_name: str = 'zhehe_user_app/zhehe_index/forms/signup.html'
+    template_name: str = 'zhehe_user_app/zhehe_index/forms/signup_form.html'
 
     signup_form = SignUp()
-    if request.method is 'POST':
-        form = SignUp(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
+    if request.method == 'POST':
+        logger.error(request.POST)
+        signup_form = SignUp(request.POST)
+        if signup_form.is_valid():
+            logger.error('Inside signup_form valid')
+            print(signup_form.cleaned_data)
         else:
-            logger.error(form.errors)
-    return render(request=request, template_name=template_name, context={'contact': signup_form})
+            logger.error(signup_form.errors)
+    return render(request=request, template_name=template_name, context={'signup': signup_form})
 
 
 def new_doc(request):

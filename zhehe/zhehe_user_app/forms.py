@@ -14,7 +14,7 @@ class Newsletter(forms.Form):
     Custom designed newsletter form for bootstrap 4 viewport
     """
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name', 'class': 'form-control'}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'form-control'}))
 
     def __init__(self, *args, **kwargs):
         """
@@ -56,11 +56,22 @@ class Contact(forms.Form):
                                                         'class': 'form-control'}),
                            label='Ihre Nachricht',
                            error_messages={'required': 'Bitte geben Sie eine Nachricht ein'})
-
     newsletter = forms.BooleanField(label='Ich möchte regelmäßig Updates über Zhehe erhalten.',
                                     required=False,
                                     widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
                                     help_text={'required': 'Check-Box'})
+
+
+class SignIn(forms.Form):
+    """
+    Custom designed sign-in form for bootstrap 4 viewport
+    """
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}),
+                             label='',
+                             error_messages={'required': 'Bitte Ihre User-Mail angeben'})
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+                               label='',
+                               error_messages={'required': 'Bitte geben Sie Ihr Passwort ein'})
 
 
 class TextInput(forms.Form):
@@ -88,38 +99,25 @@ class SignUp(forms.Form):
     """
     Custom designed UserSignUp form for bootstrap 4 viewport
     """
-    name = forms.CharField(
-        label='Vorname',
-        label_suffix='',
-        widget=forms.TextInput(attrs={'placeholder': 'Vorname'}))
-    surname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nachname'}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Passwort'}))
-    newsletter = forms.BooleanField(label='Newsletter abonnieren', required=False)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_class = 'form-horizontal'
-
-        self.fields['surname'].label = ''
-        self.fields['email'].label = 'Ihre Kontakt Mail Adresse'
-        self.fields['password'].label = 'Passwort'
-
-        self.helper.layout = Layout(
-            Div('name', css_class='form-group'),
-            Div('surname', css_class='form-group'),
-            Div('email', css_class='form-group'),
-            Div('password', css_class='form-group'),
-            Div('newsletter', css_class='form-group'),
-            bootstrap.FormActions(
-                layout.Submit('submit', 'Anmelden', css_class='form-group btn btn-primary btn-lg')
-            )
-        )
-
-    def clean_name(self, *args, **kwargs):
-        name = self.cleaned_data.get('name')
-        if 'abc' not in name:
-            raise forms.ValidationError('Blub')
-        else:
-            return name
+    usr_name = forms.CharField(label='Benutzername',
+                               widget=forms.TextInput(attrs={'placeholder': 'Benutzername',
+                                                             'class': 'form-control'}))
+    name = forms.CharField(label='Vorname',
+                           widget=forms.TextInput(attrs={'placeholder': 'Vorname',
+                                                         'class': 'form-control'}),
+                           error_messages={'required': 'Bitte geben Sie Ihren Vornamen ein'})
+    surname = forms.CharField(label='Nachname',
+                              widget=forms.TextInput(attrs={'placeholder': 'Nachname',
+                                                            'class': 'form-control'}),
+                              error_messages={'required': 'Bitte geben Sie Ihren Nachnamen ein'})
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email',
+                                                            'class': 'form-control'}),
+                             label='E-Mail',
+                             error_messages={'required': 'Bitte geben Sie eine gültige Email ein'})
+    password = forms.CharField(label='Passwort',
+                               widget=forms.PasswordInput(attrs={'placeholder': 'Passwort',
+                                                                 'class': 'form-control'}))
+    newsletter = forms.BooleanField(label='Ich möchte regelmäßig Updates über Zhehe erhalten.',
+                                    required=False,
+                                    widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+                                    help_text={'required': 'Check-Box'})
