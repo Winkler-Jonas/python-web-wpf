@@ -12,11 +12,10 @@ logger = logging.getLogger(__name__)
 
 def index(request):
     template_name: str = 'zhehe_user_app/zhehe_index/skeleton.html'
-    newsletter_form = Newsletter()
-    signin_form = SignIn()
+    #newsletter_form = Newsletter()
+    #signin_form = SignIn()
 
-    return render(request=request, template_name=template_name, status=200, context={'newsletter': newsletter_form,
-                                                                                     'signin': signin_form})
+    return render(request=request, template_name=template_name, status=200)
 
 
 def home(request):

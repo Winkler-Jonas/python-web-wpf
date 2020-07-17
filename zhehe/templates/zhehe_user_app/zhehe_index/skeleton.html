@@ -86,7 +86,7 @@ This is the content block
                             <a id="sign-btn" class="btn btn-secondary btn-lg" href="#" role="button">Sign in</a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="{% url 'signup' %}" type="button" class="btn btn-primary btn-lg" role="button">
+                            <a href="{% url 'account_signup' %}" type="button" class="btn btn-primary btn-lg" role="button">
                                 Sign up
                             </a>
                         </li>
@@ -159,7 +159,9 @@ This is the content block
     </section>
     <section id="newsletter" class="text-center">
         <h4>Bleiben Sie auf dem neuesten Stand. Abonnieren Sie jetzt unseren Newsletter.</h4>
+        {% if newsletter %}
         {% crispy newsletter %}
+        {% endif %}
     </section>
 {% endblock %}
 <!--

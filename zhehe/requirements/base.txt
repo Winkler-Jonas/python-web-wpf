@@ -4,3 +4,4 @@ pandoc>=2.9.2.1
 pypandoc>=1.4
 psycopg2==2.8.4
 django-crispy-forms>=1.9.1
+django-allauth==0.42.0

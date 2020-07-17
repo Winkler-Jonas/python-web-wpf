@@ -2,6 +2,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field
 from crispy_forms import bootstrap, layout
+from allauth.account.forms import SignupForm
 
 CONCERNS: tuple = (('', 'Wählen Sie ein Anliegen'),
                    ('VV', 'Verbesserungsvorschlag'),

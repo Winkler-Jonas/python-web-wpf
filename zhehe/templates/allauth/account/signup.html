@@ -1,0 +1,102 @@
+{% extends "account/base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="{% static 'css/zhehe_index/sign_up_form.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <section id="signup" class="container-fluid h-100">
+        <div class="row justify-content-center">
+            <h1>Registrierung</h1>
+        </div>
+        </hr>
+        <p class="text-center">
+            Sie haben bereits einen Account bei
+            <ins>Zhehe</ins>
+            ?<br>
+        <div class="container">
+            <a href="{{ login_url }}">
+                <div class="button">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-in-alt"
+                         class="svg-inline--fa fa-sign-in-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 512 512">
+                        <path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>
+                    </svg>
+                    <span>Anmelden</span>
+                </div>
+            </a>
+        </div>
+        </p>
+        <div class="row justify-content-center align-item-center h-100">
+            <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <form id="signup_form" action="{% url 'account_signup' %}" method="post" class="needs-validation signup"
+                      novalidate>
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-warning">
+                            <ul class="alert-message">
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <div class="input-group mb-3 {% if form.login.errors %}has-error{% endif %}">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="addon-email">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </div>
+                        {{ form.email }}
+                        <div class="invalid-feedback">
+                            Keine gültige E-Mail-Adresse
+                        </div>
+                        {% if redirect_field_value %}
+                            <div class="alert alert-danger">
+                                <input type="hidden" name="{{ redirect_field_name }}"
+                                       value="{{ redirect_field_value }}"/>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="input-group mb-3 {% if form.login.errors %}has-error{% endif %}">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="addon-email">
+                                <i class="fas fa-key"></i>
+                            </span>
+                        </div>
+                        {{ form.password1 }}
+                        {% comment %}                        <input class="form-control" type="password" name="password1" placeholder="Passwort" required
+                               id="id_password1">{% endcomment %}
+                        <div class="invalid-feedback">
+                            Bitte wählen Sie ein sicheres Passwort
+                        </div>
+                    </div>
+                    <div class="input-group mb-3 {% if form.login.errors %}has-error{% endif %}">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="addon-email">
+                                <i class="fas fa-key"></i>
+                            </span>
+                        </div>
+                        {{ form.password2 }}
+                        {% comment %}                        <input class="form-control" type="password" name="password2" placeholder="Passwort wiederholen"
+                               required id="id_password2">{% endcomment %}
+                        <div class="invalid-feedback">
+                            Bitte wählen Sie ein sicheres Passwort
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <button class="btn btn-primary btn-lg mt-2"
+                                type="submit">Absenden
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
