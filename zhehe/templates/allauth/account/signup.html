@@ -38,58 +38,84 @@
                 <form id="signup_form" action="{% url 'account_signup' %}" method="post" class="needs-validation signup"
                       novalidate>
                     {% csrf_token %}
-                    {% if form.non_field_errors %}
-                        <div class="alert alert-warning">
-                            <ul class="alert-message">
-                                {% for error in form.non_field_errors %}
-                                    <li>{{ error }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
-                    <div class="input-group mb-3 {% if form.login.errors %}has-error{% endif %}">
+                    <!--
+                    Input -> Email
+                    -->
+                    <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="addon-email">
+                            <span class="input-group-text">
                                 <i class="fas fa-envelope"></i>
                             </span>
                         </div>
                         {{ form.email }}
                         <div class="invalid-feedback">
-                            Keine gültige E-Mail-Adresse
+                            Bitte gültige E-Mail-Adresse eingeben
                         </div>
-                        {% if redirect_field_value %}
-                            <div class="alert alert-danger">
-                                <input type="hidden" name="{{ redirect_field_name }}"
-                                       value="{{ redirect_field_value }}"/>
-                            </div>
-                        {% endif %}
                     </div>
-                    <div class="input-group mb-3 {% if form.login.errors %}has-error{% endif %}">
+                    {% if form.email.errors %}
+                        <div class="alert alert-danger">
+                            <ul style="list-style: none; padding-left: 0">
+                                {% for error in form.email.errors %}
+                                    <li><small>{{ error }}</small></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <!--
+                    Input -> Password1
+                    -->
+                    <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="addon-email">
+                            <span class="input-group-text">
                                 <i class="fas fa-key"></i>
                             </span>
                         </div>
                         {{ form.password1 }}
-                        {% comment %}                        <input class="form-control" type="password" name="password1" placeholder="Passwort" required
-                               id="id_password1">{% endcomment %}
+                        {% if form.password1.errors %}
+                            <div class="alert alert-danger">
+                                <ul style="list-style: none; padding-left: 0">
+                                    {% for error in form.password1.errors %}
+                                        <li><small>{{ error }}</small></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
                         <div class="invalid-feedback">
                             Bitte wählen Sie ein sicheres Passwort
                         </div>
                     </div>
-                    <div class="input-group mb-3 {% if form.login.errors %}has-error{% endif %}">
+                    <!--
+                    Input -> Password2
+                    -->
+                    <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="addon-email">
+                            <span class="input-group-text">
                                 <i class="fas fa-key"></i>
                             </span>
                         </div>
                         {{ form.password2 }}
-                        {% comment %}                        <input class="form-control" type="password" name="password2" placeholder="Passwort wiederholen"
-                               required id="id_password2">{% endcomment %}
                         <div class="invalid-feedback">
                             Bitte wählen Sie ein sicheres Passwort
                         </div>
                     </div>
+                    {% if form.password2.errors %}
+                        <div class="alert alert-danger">
+                            <ul style="list-style: none; padding-left: 0">
+                                {% for error in form.password2.errors %}
+                                    <li><small>{{ error }}</small></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <!--
+                    End Input
+                    -->
+                    {% if redirect_field_value %}
+                        <div class="alert alert-danger">
+                            <input type="hidden" name="{{ redirect_field_name }}"
+                                   value="{{ redirect_field_value }}"/>
+                        </div>
+                    {% endif %}
                     <div class="input-group">
                         <button class="btn btn-primary btn-lg mt-2"
                                 type="submit">Absenden
