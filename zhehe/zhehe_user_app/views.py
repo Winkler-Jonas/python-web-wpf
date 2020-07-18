@@ -3,8 +3,9 @@ from typing import Optional, Dict
 from django.db.models import QuerySet
 from django.shortcuts import render
 
-from .forms import Newsletter, Contact, TextInput, SignUp, SignIn
+from .forms import Newsletter, Contact, TextInput
 from .models import Contact_Info, Subscriber, Document
+from allauth.account.forms import LoginForm
 
 import logging
 logger = logging.getLogger(__name__)
@@ -12,10 +13,17 @@ logger = logging.getLogger(__name__)
 
 def index(request):
     template_name: str = 'zhehe_user_app/zhehe_index/skeleton.html'
-    #newsletter_form = Newsletter()
-    #signin_form = SignIn()
+    newsletter_form = Newsletter()
+    signin_form = LoginForm()
+    if request.method == 'POST':
+        newsletter_form = Newsletter(request.POST)
+        if newsletter_form.is_valid():
+            print(newsletter_form.cleaned_data)
+        else:
+            print(newsletter_form.errors)
 
-    return render(request=request, template_name=template_name, status=200)
+    return render(request=request, template_name=template_name, status=200, context={'newsletter': newsletter_form,
+                                                                                     'signin': signin_form})
 
 
 def home(request):
@@ -45,31 +53,6 @@ def contact(request):
         else:
             logger.error(contact_form.errors)
     return render(request=request, template_name=template_name, context={'contact': contact_form})
-
-
-def signin(request):
-    template_name: str = 'zhehe_user_app/zhehe_index/forms/signin_form.html'
-
-    newsletter_form = Newsletter()
-    signin_form = SignIn()
-
-    return render(request=request, template_name=template_name, context={'newsletter': newsletter_form,
-                                                                         'signin': signin_form})
-
-
-def signup(request):
-    template_name: str = 'zhehe_user_app/zhehe_index/forms/signup_form.html'
-
-    signup_form = SignUp()
-    if request.method == 'POST':
-        logger.error(request.POST)
-        signup_form = SignUp(request.POST)
-        if signup_form.is_valid():
-            logger.error('Inside signup_form valid')
-            print(signup_form.cleaned_data)
-        else:
-            logger.error(signup_form.errors)
-    return render(request=request, template_name=template_name, context={'signup': signup_form})
 
 
 def new_doc(request):

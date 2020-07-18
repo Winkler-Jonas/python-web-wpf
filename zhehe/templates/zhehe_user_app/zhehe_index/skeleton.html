@@ -81,50 +81,86 @@ This is the content block
                     -->
                     <hr>
                     <!-- Ref's to Sign-in and Sign-up forms -->
-                    <ul class="list-inline ml-auto text-center">
-                        <li class="list-inline-item">
-                            <a id="sign-btn" class="btn btn-secondary btn-lg" href="#" role="button">Sign in</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="{% url 'account_signup' %}" type="button" class="btn btn-primary btn-lg" role="button">
-                                Sign up
-                            </a>
-                        </li>
-                    </ul>
+                    <table>
+                        <tr>
+                            <td>
+                                <a class="button container" id="sign-btn" type="button">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-in-alt"
+                                         class="svg-inline--fa fa-sign-in-alt fa-w-16" role="img"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>
+                                    </svg>
+                                    <span>Anmelden</span>
+                                </a>
+                            </td>
+                            <td style="padding-left: 5rem">
+                                <a class="button container" type="button" href="{% url 'account_signup' %}">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-in-alt"
+                                         class="svg-inline--fa fa-sign-in-alt fa-w-16" role="img"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>
+                                    </svg>
+                                    <span>Registrieren</span>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
                     <!--
                     Hidden sig-in form
                     -->
-                    <form action="{% url 'signin' %}" id="signin" class="form-inline hidden-element" method="post" novalidate>
+                    <form action="{% url 'account_login' %}" id="signin"
+                          class="form-inline justify-content-center hidden-element needs-validation" method="post"
+                          novalidate>
                         {% csrf_token %}
-                        <table>
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-envelope"></i>
-                                        </div>
-                                        {{ signin.email  }}
-{#                                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">#}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-key"></i>
-                                        </div>
-                                        {{ signin.password  }}
-{#                                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">#}
-                                    </div>
-                                </td>
-                                <td>
-                                    <button type="submit" class="btn btn-primary">Sign in</button>
-                                </td>
-                            </tr>
-                        </table>
+                        <div class="input-group mb-3">
+                            <div class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            {{ signin.login }}
+                            <div class="invalid-feedback">
+                                Bitte gültige E-Mail-Adresse eingeben
+                            </div>
+                        </div>
+                        {% if form.login.errors %}
+                            <div class="alert alert-danger">
+                                <ul style="list-style: none; padding-left: 0">
+                                    {% for error in form.login.errors %}
+                                        <li><small>{{ error }}</small></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        <div class="input-group mb-3">
+                            <div class="input-group-text">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            {{ signin.password }}
+                            <div class="invalid-feedback">
+                                Bitte geben Sie Ihr Passwort ein
+                            </div>
+                        </div>
+                        {% if form.password.errors %}
+                            <div class="alert alert-danger">
+                                <ul style="list-style: none; padding-left: 0">
+                                    {% for error in form.password.errors %}
+                                        <li><small>{{ error }}</small></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        <div class="container">
+                            <button class="button" type="submit">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-in-alt"
+                                     class="svg-inline--fa fa-sign-in-alt fa-w-16" role="img"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>
+                                </svg>
+                                <span>Anmelden</span>
+                            </button>
+                            <!-- End Form -->
+                        </div>
                     </form>
-                    <!-- End Form -->
                 </div>
-
             </div>
         </div>
     </section>
@@ -159,8 +195,36 @@ This is the content block
     </section>
     <section id="newsletter" class="text-center">
         <h4>Bleiben Sie auf dem neuesten Stand. Abonnieren Sie jetzt unseren Newsletter.</h4>
-        {% if newsletter %}
-        {% crispy newsletter %}
+        <form class="form-inline justify-content-center" method="post" action="#newsletter">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            {{ newsletter.name }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            {{ newsletter.email }}
+                        </div>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary ml-2">
+                            Abonnieren
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        {% if newsletter.errors %}
+            <div class="alert alert-danger">
+                <ul style="list-style: none; padding-left: 0">
+                    {% for error in newsletter.email.errors %}
+                        <li><small>{{ error }}</small></li>
+                    {% endfor %}
+                </ul>
+            </div>
         {% endif %}
     </section>
 {% endblock %}
@@ -181,7 +245,7 @@ End of the content block
                             class="fa fa-angle-double-right"></i>Dokumentation</a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#About"><i class="fa fa-angle-double-right"></i>About</a>
+                    <a href="#about"><i class="fa fa-angle-double-right"></i>About</a>
                 </li>
                 <li class="list-inline-item">
                     <a href="{% url 'contact' %}" type="button">
@@ -206,14 +270,40 @@ End of the content block
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 {% comment %}Insert additional JavaScripts{% endcomment %}
 {% block additional_js %}{% endblock %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#sign-btn').on('click', function (e) {
-            $(e.currentTarget).closest('ul').hide();
+            $(e.currentTarget).closest('table').hide();
             $('form#signin').fadeIn('slow');
         });
-    })
-    ;
+    });
+
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+    $(function () {
+        // Add form-control css-classes to input
+        $('#id_email').addClass('form-control');
+        $('#id_password1').addClass('form-control');
+        $('#id_password2').addClass('form-control');
+        $('#id_password').addClass('form-control');
+        $('#id_login').addClass('form-control');
+        $('#id_oldpassword').addClass('form-control');
+    });
 </script>
+
 </body>
 </html>
