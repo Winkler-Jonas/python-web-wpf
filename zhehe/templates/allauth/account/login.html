@@ -2,45 +2,116 @@
 
 {% load i18n %}
 {% load account socialaccount %}
+{% load static %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="{% static 'css/forms/login_form.css' %}">
+{% endblock %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
 
-<h1>{% trans "Sign In" %}</h1>
+    <section id="login" class="container-fluid h-100">
+        <div class="row justify-content-center">
+            <h1>{% trans "Sign In" %}</h1>
+        </div>
+        </hr>
+        <p class="text-center">
+            Sie haben noch keinen Account bei
+            <ins>Zhehe</ins>
+            ?<br>
+        <div class="container">
+            <a href="{{ signup_url }}">
+                <div class="button">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-plus"
+                         class="svg-inline--fa fa-user-plus fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 640 512">
+                        <path d="M624 208h-64v-64c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v64h-64c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h64v64c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-64h64c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm-400 48c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"></path>
+                    </svg>
+                    <span>Registrieren</span>
+                </div>
+            </a>
+        </div>
+        </p>
+        <div class="row justify-content-center align-item-center h-100 mt-5">
+            <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <form class="login needs-validation" novalidate method="POST" action="{% url 'account_login' %}">
+                    {% csrf_token %}
+                    <!--
+                    Input -> Email
+                    -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </div>
+                        {{ form.login }}
+                        {% if form.email.errors %}
+                            <div class="alert alert-danger">
+                                <ul style="list-style: none; padding-left: 0">
+                                    {% for error in form.email.errors %}
+                                        <li><small>{{ error }}</small></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            <div class="invalid-feedback">
+                                Bitte gültige E-Mail-Adresse eingeben
+                            </div>
+                        {% endif %}
+                    </div>
+                    <!--
+                    Input -> Password
+                    -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-key"></i>
+                            </span>
+                        </div>
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                            <div class="alert alert-danger">
+                                <ul style="list-style: none; padding-left: 0">
+                                    {% for error in form.password.errors %}
+                                        <li><small>{{ error }}</small></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            <div class="invalid-feedback">
+                                Bitte gültige E-Mail-Adresse eingeben
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                    {% endif %}
+                    <div class="container mt-5">
+                        <button class="button" type="submit">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-in-alt" class="svg-inline--fa fa-sign-in-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path></svg>
+                            <span>Anmelden</span>
+                        </button>
+                    </div>
+                    <p class="text-center mt-5">
+                        Haben Sie Ihr Passwort vergessen?
+                    <div class="container">
+                        <a href="{% url 'account_reset_password' %}">
+                            <div class="button secondary-action">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-lock"
+                                     class="svg-inline--fa fa-user-lock fa-w-20" role="img"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                    <path d="M224 256A128 128 0 1 0 96 128a128 128 0 0 0 128 128zm96 64a63.08 63.08 0 0 1 8.1-30.5c-4.8-.5-9.5-1.5-14.5-1.5h-16.7a174.08 174.08 0 0 1-145.8 0h-16.7A134.43 134.43 0 0 0 0 422.4V464a48 48 0 0 0 48 48h280.9a63.54 63.54 0 0 1-8.9-32zm288-32h-32v-80a80 80 0 0 0-160 0v80h-32a32 32 0 0 0-32 32v160a32 32 0 0 0 32 32h224a32 32 0 0 0 32-32V320a32 32 0 0 0-32-32zM496 432a32 32 0 1 1 32-32 32 32 0 0 1-32 32zm32-144h-64v-80a32 32 0 0 1 64 0z"></path>
+                                </svg>
+                                <span>{% trans "Reset" %}</span>
+                            </div>
+                        </a>
+                    </div>
 
-{% get_providers as socialaccount_providers %}
-
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
-
-<div class="socialaccount_ballot">
-
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
-
-  <div class="login-or">{% trans 'or' %}</div>
-
-</div>
-
-{% include "socialaccount/snippets/login_extra.html" %}
-
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
-
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
-</form>
-
+                </form>
+            </div>
+        </div>
+    </section>
 {% endblock %}

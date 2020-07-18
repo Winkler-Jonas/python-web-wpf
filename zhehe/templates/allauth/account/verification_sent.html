@@ -1,12 +1,25 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+{% load static %}
 
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 
-{% block content %}
-    <h1>{% trans "Verify Your E-mail Address" %}</h1>
+{% block additional_css %}
+    <link rel="stylesheet" href="{% static 'css/account/verify_email.css' %}">
+{% endblock %}
 
-    <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+{% block content %}
+
+    <section id="verify_sent" class="container-fluid h-100">
+        <div class="row justify-content-center">
+            <h1>{% trans "Verify Your E-mail Address" %}</h1>
+        </div>
+        </hr>
+        <p class="text-center">
+            Wir haben Ihnen eine Verfizierungsmail geschickt. Bitte folgen Sie dem Link in dem E-Mail, um den
+            Registrierungsprozess abzuschließen.
+        </p>
+    </section>
 
 {% endblock %}

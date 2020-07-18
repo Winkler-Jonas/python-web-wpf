@@ -3,6 +3,11 @@ section#signup form {
     padding-bottom: 3rem;
 }
 
+section#signup button {
+    background-color: transparent;
+    border: 0;
+}
+
 section#signup a {
     margin: 0;
     padding: 0;
@@ -14,17 +19,14 @@ section#signup a:link {
   color: black;
 }
 
-/* visited link */
 section#signup a:visited {
   color: black;
 }
 
-/* mouse over link */
 section#signup a:hover {
   color: black;
 }
 
-/* selected link */
 section#signup a:active {
   color: black;
 }

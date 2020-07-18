@@ -7,8 +7,7 @@
     {% block body %}
 
         {% if messages %}
-            <div>
-                <strong>Messages:</strong>
+            <div class="alert alert-info">
                 <ul>
                     {% for message in messages %}
                         <li>{{ message }}</li>
@@ -44,6 +43,9 @@
                 $('#id_email').addClass('form-control');
                 $('#id_password1').addClass('form-control');
                 $('#id_password2').addClass('form-control');
+                $('#id_password').addClass('form-control');
+                $('#id_login').addClass('form-control');
+                $('#id_oldpassword').addClass('form-control');
             });
         </script>
     {% endblock %}
