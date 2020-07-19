@@ -51,7 +51,7 @@
                     <a href="{% url 'contact' %}">Contact</a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#about">About</a>
+                    <a href="/#about">About</a>
                 </li>
             </ul>
         </div>
@@ -62,20 +62,29 @@ This is the content block
 -->
 {% block page-content %}
     <section id="intro-header">
-        <div class="container">
+        <div>
             <div class="row">
                 <div class="wrap-headline">
                     <!--
                     Colored Logo - OnClick load user-document-overview
                     -->
-                    <a class="ref-img" href="{% url 'home' %}">
+                    {% if user.is_authenticated %}
+                        <a class="ref-img" href="{% url 'home' %}">
                     <span class="span-img">
                         <object class="obj-img" type="image/svg+xml" data="{% static 'img/zhehe-logo.svg' %}">
                             <div style="background-image: url({% static 'img/zhehe-logo.png' %}); width 100px; height:100px;"
                                  role="img" aria-label="zhehe-logo"></div>
                         </object>
                     </span>
-                    </a>
+                        </a>
+                    {% else %}
+                        <span class="span-img">
+                        <object class="obj-img" type="image/svg+xml" data="{% static 'img/zhehe-logo.svg' %}">
+                            <div style="background-image: url({% static 'img/zhehe-logo.png' %}); width 100px; height:100px;"
+                                 role="img" aria-label="zhehe-logo"></div>
+                        </object>
+                    </span>
+                    {% endif %}
                     <!--
                     End Colored Logo
                     -->
@@ -118,7 +127,7 @@ This is the content block
                             </div>
                             {{ signin.login }}
                             <div class="invalid-feedback">
-                                Bitte gültige E-Mail-Adresse eingeben
+                                Ungültige E-Mail-Adresse
                             </div>
                         </div>
                         {% if form.login.errors %}
@@ -136,7 +145,7 @@ This is the content block
                             </div>
                             {{ signin.password }}
                             <div class="invalid-feedback">
-                                Bitte geben Sie Ihr Passwort ein
+                                Ungültiges Passwort
                             </div>
                         </div>
                         {% if form.password.errors %}

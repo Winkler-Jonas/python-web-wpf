@@ -14,14 +14,12 @@ header li {
     font-weight: bold;
 }
 
-
 section#intro-header .wrap-headline {
     position: relative;
     padding-top: 10%;
     padding-bottom: 5%;
     margin: 0 auto;
 }
-
 
 section#intro-header {
     background-size: cover;
@@ -134,14 +132,6 @@ section#intro-header svg {
 section#intro-header .button:hover svg {
     stroke-dashoffset: 0;
 }
-
-
-
-
-
-
-
-
 
 section#about img {
     margin-top: 6.5rem;
