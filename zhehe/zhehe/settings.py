@@ -26,7 +26,7 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = '2l#gti87#&g+4)ncsy(yz*fm)s($b3r61*4x5ib)hx*(+^eq34'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,9 +82,35 @@ WSGI_APPLICATION = 'zhehe.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'zhehe-db',
+        'USER': 'jonas',
+        'PASSWORD': 'password',
+        'HOST': 'postgre_db',
+        'PORT': '5432',
     }
+}
+
+# Basic Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+    },
 }
 
 # Password validation
@@ -126,8 +152,9 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static_files/'
 
-MEDIA_ROOT = MEDIA_DIR
+MEDIA_ROOT = '/media_content/'
 MEDIA_URL = '/media/'
 
 # Allauths Settings
