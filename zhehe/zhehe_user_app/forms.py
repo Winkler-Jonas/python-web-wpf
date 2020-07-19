@@ -7,6 +7,9 @@ CONCERNS: tuple = (('', 'Wählen Sie ein Anliegen'),
                    ('B', 'Beschwerde'),
                    ('AA', 'Andere Anliegen'))
 
+FORMATS: tuple = (('md', 'Markdown'),
+                  ('rst', 'RestructuredText'))
+
 
 class Newsletter(forms.Form):
     """
@@ -53,5 +56,8 @@ class TextInput(forms.Form):
     """
     Custom designed TxtInput form for bootstrap 4 viewport
     """
+    text_format = forms.ChoiceField(choices=FORMATS,
+                                    label='Format',
+                                    widget=forms.Select(attrs={'class': 'form-control mb-3'}))
     text_area = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Geben Sie hier Ihren Text ein ...',
                                                              'class': 'form-control textarea'}))

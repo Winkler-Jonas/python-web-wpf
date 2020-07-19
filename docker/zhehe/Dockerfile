@@ -14,6 +14,7 @@ RUN chmod +x /entrypoint.sh
 RUN set -x \
     && apt-get update -y \
     && apt-get install -y poppler-utils \
-    && apt-get install -y pandoc
+    && apt-get install -y pandoc \
+    && apt-get install -y texlive-full
 
 ENTRYPOINT ["/entrypoint.sh"]

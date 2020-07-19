@@ -21,7 +21,7 @@
         </hr>
         <div class="row justify-content-center align-item-center h-100">
             <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                <form action="{% url 'contact' %}" method="post" class="needs-validation" novalidate>
+                <form action="{% url 'zhehe:contact' %}" method="post" class="needs-validation" novalidate>
                     {% csrf_token %}
                     {% for field in contact %}
                         {% if field.help_text %}

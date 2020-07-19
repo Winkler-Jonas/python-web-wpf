@@ -1,7 +1,7 @@
 Docker - Django
 ***************
 
-.. image:: /_static/img/docker/docker_django_label.png
+.. image:: /_static/img/docker/docker_logo_ani.gif
     :scale: 50 %
     :align: center
     :target: https://miro.medium.com/max/1400/1*h205DQBt-f7ikKiPpP4Gxg.png

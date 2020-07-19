@@ -64,9 +64,10 @@
             <div class="col-sm-6 mx-auto justify-content-center ">
                 <form action="{% url 'zhehe:new_doc' %}" method="post">
                     {% csrf_token %}
+                    {{ text_form.text_format }}
                     {{ text_form.text_area }}
                     <span class="button-group">
-                            <button class="button container mt-3" type="submit">
+                            <button class="button container mt-3" type="submit" name="convert" value="1">
                                 <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="paper-plane"
                                      class="svg-inline--fa fa-paper-plane fa-w-16" role="img"
                                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path
@@ -74,7 +75,7 @@
                                 </svg>
                                 <span>Konvertieren</span>
                             </button>
-                        <button class="button container mt-3 ml-3" type="submit">
+                        <button class="button container mt-3 ml-3" type="submit" name="save" value="2">
                             <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="save"
                                  class="svg-inline--fa fa-save fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg"
                                  viewBox="0 0 448 512"><path

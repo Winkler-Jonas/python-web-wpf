@@ -57,10 +57,22 @@
         </div>
     </div>
 </header>
+
+{% if messages %}
+    <div class="alert alert-info">
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
 <!--
 This is the content block
 -->
 {% block page-content %}
+
     <section id="intro-header">
         <div>
             <div class="row">

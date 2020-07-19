@@ -9,6 +9,7 @@ class Subscriber(models.Model):
 
 
 class Contact_Info(models.Model):
+    concern = models.CharField(max_length=100)
     name = models.CharField(max_length=200)
     surname = models.CharField(max_length=200)
     email = models.EmailField(blank=True)

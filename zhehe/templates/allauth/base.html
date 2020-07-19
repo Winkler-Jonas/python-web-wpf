@@ -6,47 +6,9 @@
 {% block page-content %}
     {% block body %}
 
-        {% if messages %}
-            <div class="alert alert-info">
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
         {% block content %}
         {% endblock %}
     {% endblock %}
     {% block extra_body %}
-    {% endblock %}
-    {% block additional_js %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script>
-            (function () {
-                'use strict';
-                window.addEventListener('load', function () {
-                    var forms = document.getElementsByClassName('needs-validation');
-                    var validation = Array.prototype.filter.call(forms, function (form) {
-                        form.addEventListener('submit', function (event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
-            $(function () {
-                // Add form-control css-classes to input
-                $('#id_email').addClass('form-control');
-                $('#id_password1').addClass('form-control');
-                $('#id_password2').addClass('form-control');
-                $('#id_password').addClass('form-control');
-                $('#id_login').addClass('form-control');
-                $('#id_oldpassword').addClass('form-control');
-            });
-        </script>
     {% endblock %}
 {% endblock %}
