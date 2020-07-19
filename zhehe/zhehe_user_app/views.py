@@ -1,4 +1,4 @@
-from typing import Optional, Dict
+from typing import Optional, Dict, List
 
 from django.db.models import QuerySet
 from django.shortcuts import render
@@ -22,23 +22,23 @@ def index(request):
             print(newsletter_form.cleaned_data)
         else:
             print(newsletter_form.errors)
-
     return render(request=request, template_name=template_name, status=200, context={'newsletter': newsletter_form,
                                                                                      'signin': signin_form})
 
 
 @verified_email_required
-def home(request, usr_id):
-    template_name: str = 'zhehe_user_app/zhehe_convert/overview.html'
+def home(request):
+    template_name: str = 'zhehe_user_app/zhehe_home/overview.html'
     context_dict: Dict[str, Optional[QuerySet]] = {'documents': None}
 
-    try:
-        context_dict['documents'] = Document.objects.all()
-    except Document.DoesNotExist:
-        pass    # Ignore
-
-    print(request.GET)
-
+    if request.user.is_authenticated:
+        """
+        If the user requesting is authenticated retrieve his documents
+        """
+        try:
+            context_dict['documents'] = Document.objects.filter(document_owner=request.user.id)
+        except Document.DoesNotExist:
+            pass  # Ignore
     return render(request=request, template_name=template_name, context=context_dict)
 
 
@@ -47,8 +47,6 @@ def contact(request):
 
     contact_form = Contact()
     if request.method == 'POST':
-        logger.error(request.POST)
-        logger.error('Hello from contact view')
         contact_form = Contact(request.POST)
         if contact_form.is_valid():
             print(contact_form.cleaned_data)
@@ -58,10 +56,19 @@ def contact(request):
 
 
 def new_doc(request):
-    template_name: str = "zhehe_user_app/zhehe_convert/convert_main.html"
-    text_area = TextInput
+    template_name: str = "zhehe_user_app/zhehe_home/new_doc.html"
+    text_area = TextInput()
+    messages: List[str] = []
+    if request.method == 'POST':
+        text_area = TextInput(request.POST)
+        if text_area.is_valid():
+            print(text_area.cleaned_data)
+            messages.append('Dokument erfolgreich konvertiert')
+        else:
+            print(text_area.errors)
 
-    return render(request=request, template_name=template_name, status=200, context={'form': text_area})
+    return render(request=request, template_name=template_name, status=200, context={'text_form': text_area,
+                                                                                     'messages': messages})
 
 
 def download(request):
