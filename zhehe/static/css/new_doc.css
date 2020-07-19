@@ -1,4 +1,4 @@
-.circle {
+.plus {
     border-radius: 50%;
     width: 100px;
     height: 100px;
@@ -8,7 +8,7 @@
     position: relative;
 }
 
-.circle::after {
+.plus::after {
     content: " ";
     position: absolute;
     display: block;
@@ -21,17 +21,17 @@
     z-index: 9;
 }
 
-.circle:hover::before {
+.plus:hover::before {
     transform: rotate(90deg);
     transition-duration: 1s;
 }
 
-.circle:hover::after {
+.plus:hover::after {
     transform: rotate(-90deg);
     transition-duration: 1s;
 }
 
-.circle::before {
+.plus::before {
     content: " ";
     position: absolute;
     display: block;

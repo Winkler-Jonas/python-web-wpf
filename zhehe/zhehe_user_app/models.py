@@ -16,6 +16,7 @@ class Contact_Info(models.Model):
 
 
 class Document(models.Model):
+    document_owner = models.IntegerField()
     document_name = models.TextField()
     document_path = models.FilePathField(null=True)
     document_date_edit = models.DateTimeField(blank=True, null=True)

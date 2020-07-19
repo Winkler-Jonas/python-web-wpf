@@ -140,7 +140,12 @@ AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',
                            'allauth.account.auth_backends.AuthenticationBackend']
 
 # EMAIL_BACKEND so allauth can proceed to send confirmation emails
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = 'zhehe.info@gmail.com'
+EMAIL_HOST_PASSWORD = '3z*C.tHq"M#D'
+EMAIL_USE_TLS = True
 
 # Custom allauth settings
 # Use email as the primary identifier
@@ -153,5 +158,5 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # Eliminate need to provide username
 ACCOUNT_USERNAME_REQUIRED = False
 
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'

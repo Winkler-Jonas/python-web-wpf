@@ -6,6 +6,7 @@ from django.shortcuts import render
 from .forms import Newsletter, Contact, TextInput
 from .models import Contact_Info, Subscriber, Document
 from allauth.account.forms import LoginForm
+from allauth.account.decorators import verified_email_required
 
 import logging
 logger = logging.getLogger(__name__)
@@ -26,7 +27,8 @@ def index(request):
                                                                                      'signin': signin_form})
 
 
-def home(request):
+@verified_email_required
+def home(request, usr_id):
     template_name: str = 'zhehe_user_app/zhehe_convert/overview.html'
     context_dict: Dict[str, Optional[QuerySet]] = {'documents': None}
 
