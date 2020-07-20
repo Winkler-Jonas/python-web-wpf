@@ -17,9 +17,9 @@ deployed werden kann.
 
     - `Linux Mint`_
     - `Andere Betriebssysteme`_
-    - `Projektstruktur`_
-    - `Django`_
-    - `Docker-Compose`_
+- `Projektstruktur`_
+- `Django`_
+- `Docker-Compose`_
 
 Installation
 ------------
@@ -94,17 +94,6 @@ Docker Dokumentation gefolgt werden, um Docker und Docker-Compose zu installiere
 
 Projektstruktur
 ---------------
-
-.. image:: /_static/img/docker/project_structure.png
-    :scale: 100 %
-    :align: right
-
-Die Django Application besteht aus dem Namen der Application sowie einer App mit selbigem Namen. Hier im Beispiel
-`django_app`. In der App befinden sich die verschiedene Dateien für Einstellungen der App, auf die ich hier nicht weiter
-eingehen werde -> `Informationen zu Django <https://www.djangoproject.com/start/>`_. Des Weiteren ein Docker Ordner
-`docker` für die Dockerfiles sowie Aufbauskripten und Konfigurationsdateien, welche die Initialisierung des Servers
-übernimmt. Um Docker-Compose einzurichten, wird noch eine `docker-compose.yml`_ Datei verwendet, hier wurden zwei
-unterschiedliche `.yml` Dateien angelegt, um den Development und dem Produktion Service zu starten.
 
 docker-compose.yml
 ^^^^^^^^^^^^^^^^^^
