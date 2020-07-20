@@ -19,7 +19,7 @@ class Contact_Info(models.Model):
 class Document(models.Model):
     document_owner = models.IntegerField()
     document_name = models.TextField()
-    document_path = models.FilePathField(null=True)
+    document_path = models.CharField(max_length=500, primary_key=True)
     document_date_edit = models.DateTimeField(blank=True, null=True)
     document_date_added = models.DateTimeField(blank=True, null=True)
     document_info = models.TextField(null=True, blank=True)
@@ -31,7 +31,7 @@ class Document(models.Model):
 
 
 class DocumentPage(models.Model):
-    doc_page_path = models.FilePathField()
+    doc_page_path = models.CharField(max_length=500, primary_key=True)
     doc_page_no = models.IntegerField()
     doc_fk = models.ForeignKey(Document, related_name='pages', on_delete=models.CASCADE)
 

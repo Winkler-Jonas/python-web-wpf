@@ -4,3 +4,4 @@ psycopg2==2.8.4
 django-crispy-forms>=1.9.1
 django-allauth==0.42.0
 gunicorn==20.0.4
+pdf2image==1.13.1

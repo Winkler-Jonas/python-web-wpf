@@ -28,37 +28,55 @@
         {% endif %}
         <div class="row h-75">
             <div class="col-sm-6" id="pdf-preview">
-                <div id="demo" class="carousel slide" data-interval="false">
+                {% if images %}
+                    <div id="demo" class="carousel slide" data-interval="false">
 
-                    <!-- Indicators -->
-                    <ul class="carousel-indicators">
-                        <li data-target="#demo" data-slide-to="0" class="active"></li>
-                        <li data-target="#demo" data-slide-to="1"></li>
-                        <li data-target="#demo" data-slide-to="2"></li>
-                    </ul>
+                        <!-- Indicators -->
+                        <ul class="carousel-indicators">
+                            {% for image in images %}
+                                {% if image.doc_page_no == 0 %}
+                                    <li data-target="#demo" data-slide-to="{{ image.doc_page_no }}" class="active"></li>
+                                {% else %}
+                                    <li data-target="#demo" data-slide-to="{{ image.doc_page_no }}"></li>
+                                {% endif %}
+                                {#                        <li data-target="#demo" data-slide-to="1"></li>#}
+                                {#                        <li data-target="#demo" data-slide-to="2"></li>#}
+                            {% endfor %}
+                        </ul>
 
-                    <!-- The slideshow -->
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="{% static 'img/9_0_0.png' %}" class="img-fluid" alt="Los Angeles">
+                        <!-- The slideshow -->
+                        <div class="carousel-inner">
+                            {% for image in images %}
+                                {% if image.doc_page_no == 0 %}
+                                    <div class="carousel-item active">
+                                        <img src="{{ image.doc_page_path }}" class="img-fluid"
+                                             alt="Page {{ image.doc_page_no }}">
+                                    </div>
+                                {% else %}
+                                    <div class="carousel-item">
+                                        <img src="{{ image.doc_page_path }}" class="img-fluid"
+                                             alt="Page {{ image.doc_page_no }}">
+                                    </div>
+                                {% endif %}
+                                {#                        <div class="carousel-item">#}
+                                {#                            <img src="{% static 'img/9_1_0.png' %}" class="img-fluid" alt="Chicago">#}
+                                {#                        </div>#}
+                                {#                        <div class="carousel-item">#}
+                                {#                            <img src="{% static 'img/9_3_0.png' %}" class="img-fluid" alt="New York">#}
+                                {#                        </div>#}
+                            {% endfor %}
                         </div>
-                        <div class="carousel-item">
-                            <img src="{% static 'img/9_1_0.png' %}" class="img-fluid" alt="Chicago">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{% static 'img/9_3_0.png' %}" class="img-fluid" alt="New York">
-                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#demo" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+
                     </div>
-
-                    <!-- Left and right controls -->
-                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </a>
-                    <a class="carousel-control-next" href="#demo" data-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </a>
-
-                </div>
+                {% endif %}
             </div>
 
             <div class="col-sm-6 mx-auto justify-content-center ">
