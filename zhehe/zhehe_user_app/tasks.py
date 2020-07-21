@@ -5,6 +5,7 @@ from typing import Callable, Dict, Union, TypeVar, List
 from datetime import date, datetime
 from pathlib import Path
 
+from django.db import transaction
 from django.utils import timezone
 from pdf2image import convert_from_path
 
@@ -44,6 +45,16 @@ class PandocException(Exception):
 class ImgConvertError(Exception):
     """
     Exception is raised if any error occurs while converting pdf to img
+    """
+
+    def __init__(self, msg: str):
+        super().__init__(msg)
+        self.msg = msg
+
+
+class FileNotFoundException(Exception):
+    """
+    Exception is raised if the user tries to save a document that's has not been converted
     """
 
     def __init__(self, msg: str):
@@ -104,6 +115,61 @@ def __create_empty_pdf(usr_id: str, tmp: bool = False) -> Path:
         empty_file: Path = Path(__usr_dir(usr_id) / f'{datetime.now().isoformat()}.pdf')
     empty_file.touch()
     return empty_file
+
+
+def __usr_has_document(usr_id: str) -> bool:
+    """
+    Check whether the user currently has a temporary file created in his workspace
+
+    :param usr_id: The id of the user (pk of auth_user table)
+    :type usr_id: str
+    :return: True if he has, else False
+    :rtype: bool
+    """
+    tmp_dir: Path = Path(__usr_dir(usr_id) / 'tmp')
+    return True if tmp_dir.exists() and len([file for file in tmp_dir.iterdir() if file.is_file()]) > 1 else False
+
+
+def __store_doc_permanent(usr_id: str, doc_name: str, doc_info: str = None) -> None:
+
+    def move_file_to_parent(file: Path) -> Path:
+        """
+        Moves provided file one folder up to parent dir
+
+        :param file: The file to be moved
+        :type file: Path
+        :return: The new path of the file
+        :rtype: Path
+        """
+        new_path: Path = Path(file).absolute()
+        parent_dir: Path = new_path.parent.parent
+        return new_path.rename(parent_dir / new_path.name)
+
+    def insert_new_pdf(new_path: Path):
+        __insert_into('Dokument')
+
+    for doc in [doc for doc in Path(__usr_dir(usr_id) / 'tmp').iterdir() if doc.is_file()]:
+        new_path: Path = move_file_to_parent(doc)
+        if doc.suffix == '.pdf':
+            old_doc = Document.objects.get(document_path=str(doc))
+
+            __insert_into('Document', **{'document_name': doc_name,
+                                         'document_path': str(new_path),
+                                         'document_date_edit': timezone.make_aware(datetime.now()),
+                                         'document_date_added': timezone.make_aware(datetime.now()),
+                                         'document_info': doc_info,
+                                         'document_owner': usr_id,
+                                         'document_format': old_doc.document_format,
+                                         'document_text': old_doc.document_text})
+            new_doc = Document.objects.get(document_path=str(new_path))
+            with transaction.atomic():
+                old_img_list = DocumentPage.objects.filter(doc_fk=str(doc))
+                for old_img in old_img_list:
+                    old_img.doc_page_path = re.sub(r'/tmp', '', old_img.doc_page_path)
+                    old_img.doc_fk = new_doc
+                    old_img.save()
+                old_doc.delete()
+    return new_path
 
 
 # ------------------------------
@@ -184,6 +250,8 @@ def convert_doc(text: str, input_format: str, usr_id: str) -> str:
     __convert_to_pdf(text=text, input_format=input_format, output_file=pdf_file)
     __insert_into(table_name='Document', **{'document_owner': usr_id,
                                             'document_name': pdf_file.stem,
+                                            'document_text': text,
+                                            'document_format': input_format,
                                             'document_path': str(pdf_file),
                                             'document_date_edit': timezone.make_aware(datetime.now()),
                                             'document_date_added': timezone.make_aware(datetime.now()),
@@ -192,8 +260,11 @@ def convert_doc(text: str, input_format: str, usr_id: str) -> str:
     return str(pdf_file)
 
 
-def save_doc(text: str, input_format: str, usr_id: str):
-    pass
+def save_doc(doc_name: str, doc_info: str, usr_id: str):
+    if __usr_has_document(usr_id=usr_id):
+        return str(__store_doc_permanent(usr_id=usr_id, doc_name=doc_name, doc_info=doc_info))
+    else:
+        raise FileNotFoundException('Keine Datei gefunden. Bitte stellen Sie sicher, dass Sie Ihren Text konvertiert haben.')
 
 
 # -------------------------------------

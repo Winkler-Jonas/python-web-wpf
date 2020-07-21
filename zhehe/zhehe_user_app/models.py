@@ -20,6 +20,8 @@ class Document(models.Model):
     document_owner = models.IntegerField()
     document_name = models.TextField()
     document_path = models.CharField(max_length=500, primary_key=True)
+    document_text = models.TextField()
+    document_format = models.CharField(max_length=5)
     document_date_edit = models.DateTimeField(blank=True, null=True)
     document_date_added = models.DateTimeField(blank=True, null=True)
     document_info = models.TextField(null=True, blank=True)

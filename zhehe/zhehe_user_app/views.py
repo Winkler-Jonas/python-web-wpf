@@ -3,9 +3,9 @@ from typing import Optional, Dict, List
 from django.db.models import QuerySet
 from django.shortcuts import render
 
-from .forms import Newsletter, Contact, TextInput
+from .forms import Newsletter, Contact, TextInput, DocumentSave
 from .models import Contact_Info, Subscriber, Document, DocumentPage
-from .tasks import convert_doc, save_doc, PandocException, UnknownModel, ImgConvertError
+from .tasks import convert_doc, save_doc, PandocException, FileNotFoundException, UnknownModel, ImgConvertError
 from allauth.account.forms import LoginForm
 from allauth.account.decorators import verified_email_required
 
@@ -119,35 +119,39 @@ def new_doc(request):
     """
     template_name: str = "zhehe_user_app/zhehe_home/new_doc.html"
     text_area = TextInput()
+    doc_save_form = DocumentSave()
     messages: List[str] = []
     images: QuerySet = DocumentPage.objects.none()
     if request.method == 'POST':
         text_area = TextInput(request.POST)
-        if text_area.is_valid():
+        doc_save_form = DocumentSave(request.POST)
+        if text_area.is_valid() and request.POST.get('convert'):
             # collect data from form
             text: str = text_area.cleaned_data['text_area']
             input_format: str = text_area.cleaned_data['text_format']
-            usr_id: str = str(request.user.id)
-            if request.POST.get('convert'):
-                try:
-                    pdf_file: str = convert_doc(text=text, input_format=input_format, usr_id=usr_id)
-                    images = DocumentPage.objects.filter(doc_fk=pdf_file).order_by('doc_page_no')
-                    messages.append('Dokument erfolgreich konvertiert')
-                except (PandocException, ImgConvertError) as e:
-                    messages.append(e.msg)
-                except UnknownModel as e:
-                    pass    # not supposed to be seen by user
-            elif request.POST.get('save'):
-                try:
-                    save_doc(text=text, input_format=input_format, usr_id=usr_id)
-                    messages.append('Dokument erfolgreich gespeichert')
-                except (PandocException, ImgConvertError) as e:
-                    messages.append(e.msg)
-                except UnknownModel as e:
-                    pass    # not supposed to be seen by user
+            try:
+                pdf_file: str = convert_doc(text=text, input_format=input_format, usr_id=str(request.user.id))
+                images = DocumentPage.objects.filter(doc_fk=pdf_file).order_by('doc_page_no')
+                messages.append('Dokument erfolgreich konvertiert')
+            except (PandocException, ImgConvertError) as e:
+                messages.append(e.msg)
+            except UnknownModel as e:
+                pass    # not supposed to be seen by user
+        elif doc_save_form.is_valid() and request.POST.get('save'):
+            doc_name: str = doc_save_form.cleaned_data['name']
+            doc_info: str = doc_save_form.cleaned_data['info'] if doc_save_form.cleaned_data['info'] else ''
+            try:
+                pdf_file: str = save_doc(doc_name=doc_name, doc_info=doc_info, usr_id=str(request.user.id))
+                images = DocumentPage.objects.filter(doc_fk=pdf_file).order_by('doc_page_no')
+                messages.append('Dokument erfolgreich gespeichert')
+            except FileNotFoundException as e:
+                messages.append(e.msg)
+            except UnknownModel as e:
+                pass    # not supposed to be seen by user
     return render(request=request, template_name=template_name, status=200, context={'text_form': text_area,
                                                                                      'messages': messages,
-                                                                                     'images': images})
+                                                                                     'images': images,
+                                                                                     'doc_save': doc_save_form})
 
 
 @verified_email_required

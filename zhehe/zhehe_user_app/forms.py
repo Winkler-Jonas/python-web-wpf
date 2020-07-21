@@ -61,3 +61,18 @@ class TextInput(forms.Form):
                                     widget=forms.Select(attrs={'class': 'form-control mb-3'}))
     text_area = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Geben Sie hier Ihren Text ein ...',
                                                              'class': 'form-control textarea'}))
+
+
+class DocumentSave(forms.Form):
+    """
+    Custom design form to save documents
+    """
+    name = forms.CharField(label='Name',
+                           widget=forms.TextInput(attrs={'max_length': 30,
+                                                         'class': 'form-control',
+                                                         'placeholder': 'Dokumentname'}))
+    info = forms.CharField(label='Info',
+                           required=False,
+                           widget=forms.TextInput(attrs={'max_length': 100,
+                                                         'class': 'form-control',
+                                                         'placeholder': 'Beschreibung'}))
