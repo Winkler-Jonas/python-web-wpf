@@ -1,7 +1,11 @@
+import re
+from pathlib import Path
 from typing import Optional, Dict, List
 
 from django.db.models import QuerySet
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from .forms import Newsletter, Contact, TextInput, DocumentSave
 from .models import Contact_Info, Subscriber, Document, DocumentPage
@@ -136,13 +140,16 @@ def new_doc(request):
             except (PandocException, ImgConvertError) as e:
                 messages.append(e.msg)
             except UnknownModel as e:
-                pass    # not supposed to be seen by user
+                pass  # not supposed to be seen by user
         elif doc_save_form.is_valid() and request.POST.get('save'):
             doc_name: str = doc_save_form.cleaned_data['name']
             doc_info: str = doc_save_form.cleaned_data['info'] if doc_save_form.cleaned_data['info'] else ''
             try:
                 pdf_file: str = save_doc(doc_name=doc_name, doc_info=doc_info, usr_id=str(request.user.id))
                 images = DocumentPage.objects.filter(doc_fk=pdf_file).order_by('doc_page_no')
+                file_saved = Document.objects.get(document_path=pdf_file)
+                text_area = TextInput(initial={'text_area': file_saved.document_text,
+                                               'text_format': file_saved.document_format})
                 messages.append('Dokument erfolgreich gespeichert')
             except FileNotFoundException as e:
                 messages.append(e.msg)
@@ -155,7 +162,7 @@ def new_doc(request):
 
 
 @verified_email_required
-def download(request, doc):
+def download(request, document: str):
     """
     ``!important!`` This view is only available for users who validated their email address
 
@@ -163,7 +170,100 @@ def download(request, doc):
 
     :param request: Django request Object
     :type request: django.core.handlers.wsgi.WSGIRequest
+    :param document: The document path to be downloaded
+    :type document: str
     :return: Django render object containing HttpResponse
     :rtype: django.http.response.HttpResponse
     """
-    pass
+    if request.method == 'GET':
+        if (pdf_file := Path(document)).exists():
+            db_file = Document.objects.get(document_path=str(pdf_file))
+            with pdf_file.open(mode='rb') as fd:
+                response = HttpResponse(fd.read(), content_type='application/pdf')
+                response['Content-Disposition'] = f'attachment; filename={db_file.document_name}.pdf'
+                return response
+    return redirect(reverse('zhehe:home'))
+
+
+@verified_email_required()
+def edit(request, document: str):
+    """
+    ``!important!`` This view is only available for users who validated their email address
+
+    View basically renders the same output as ``new_doc`` however, the text-area and the images
+    will be the from the start
+
+    :param request: Django request Object
+    :type request: django.core.handlers.wsgi.WSGIRequest
+    :param document: The document path to be edited
+    :type document: str
+    :return: Django render object containing HttpResponse
+    :rtype: django.http.response.HttpResponse
+    """
+    template_name: str = "zhehe_user_app/zhehe_home/new_doc.html"
+    messages: List[str] = []
+    text_area = TextInput()
+    doc_save_form = DocumentSave()
+    messages: List[str] = []
+    images: QuerySet = DocumentPage.objects.none()
+    if request.method == 'GET':
+        if (pdf_file := Path(document)).exists():
+            db_tuple = Document.objects.get(document_path=document)
+
+            text_area = TextInput(initial={'text_area': db_tuple.document_text,
+                                           'text_format': db_tuple.document_format})
+            doc_save_form = DocumentSave(initial={'name': db_tuple.document_name,
+                                                  'info': db_tuple.document_info})
+            images: QuerySet = DocumentPage.objects.filter(doc_fk=document).order_by('doc_page_no')
+        else:
+            redirect_template: str = 'zhehe_user_app/zhehe_home/overview.html'
+            messages.append('Leider konnte Ihr Dokument nicht geladen werden.'
+                            'Bitte nehmen Sie Kontak mit uns auf')
+
+            return render(request=request, template_name=redirect_template,
+                          context={'documents': Document.objects.filter(document_owner=request.user.id),
+                                   'messages': messages})
+    elif request.method == 'POST':
+        text_area = TextInput(request.POST)
+        doc_save_form = DocumentSave(request.POST)
+        if text_area.is_valid() and request.POST.get('convert'):
+            # collect data from form
+            text: str = text_area.cleaned_data['text_area']
+            input_format: str = text_area.cleaned_data['text_format']
+            try:
+                pdf_file: str = convert_doc(text=text, input_format=input_format, usr_id=str(request.user.id))
+                images = DocumentPage.objects.filter(doc_fk=pdf_file).order_by('doc_page_no')
+                messages.append('Dokument erfolgreich konvertiert')
+            except (PandocException, ImgConvertError) as e:
+                messages.append(e.msg)
+            except UnknownModel as e:
+                pass  # not supposed to be seen by user
+        elif doc_save_form.is_valid() and request.POST.get('save'):
+            doc_name: str = doc_save_form.cleaned_data['name']
+            doc_info: str = doc_save_form.cleaned_data['info'] if doc_save_form.cleaned_data['info'] else ''
+            try:
+                pdf_file: str = save_doc(doc_name=doc_name, doc_info=doc_info, usr_id=str(request.user.id))
+                images = DocumentPage.objects.filter(doc_fk=pdf_file).order_by('doc_page_no')
+                file_saved = Document.objects.get(document_path=pdf_file)
+                text_area = TextInput(initial={'text_area': file_saved.document_text,
+                                               'text_format': file_saved.document_format})
+                messages.append('Dokument erfolgreich gespeichert')
+            except FileNotFoundException as e:
+                messages.append(e.msg)
+            except UnknownModel as e:
+                pass  # not supposed to be seen by user
+    return render(request=request, template_name=template_name, status=200, context={'text_form': text_area,
+                                                                                     'messages': messages,
+                                                                                     'images': images,
+                                                                                     'doc_save': doc_save_form})
+
+
+def delete(request, document: str):
+    if request.method == 'POST':
+        if (pdf_file := Path(document)).exists():
+            files_to_delete: List[Path] = [Path(re.sub(r'(?<=^/)media(?=/)', 'media_content', doc_path['doc_page_path'])) for doc_path in DocumentPage.objects.all().values('doc_page_path').filter(doc_fk_id=document)]
+            DocumentPage.objects.filter(doc_fk=document).delete()
+            Document.objects.get(document_path=document).delete()
+            for file in files_to_delete + [pdf_file]:
+                file.unlink()
+    return redirect(reverse('zhehe:home'))

@@ -1,7 +1,7 @@
 import inspect
 import re
 import sys
-from typing import Callable, Dict, Union, TypeVar, List
+from typing import Callable, Dict, Union, TypeVar, List, Optional
 from datetime import date, datetime
 from pathlib import Path
 
@@ -130,7 +130,7 @@ def __usr_has_document(usr_id: str) -> bool:
     return True if tmp_dir.exists() and len([file for file in tmp_dir.iterdir() if file.is_file()]) > 1 else False
 
 
-def __store_doc_permanent(usr_id: str, doc_name: str, doc_info: str = None) -> None:
+def __store_doc_permanent(usr_id: str, doc_name: str, doc_info: str = None) -> Path:
 
     def move_file_to_parent(file: Path) -> Path:
         """
@@ -145,12 +145,11 @@ def __store_doc_permanent(usr_id: str, doc_name: str, doc_info: str = None) -> N
         parent_dir: Path = new_path.parent.parent
         return new_path.rename(parent_dir / new_path.name)
 
-    def insert_new_pdf(new_path: Path):
-        __insert_into('Dokument')
-
+    ret_value: Optional[Path] = None
     for doc in [doc for doc in Path(__usr_dir(usr_id) / 'tmp').iterdir() if doc.is_file()]:
         new_path: Path = move_file_to_parent(doc)
         if doc.suffix == '.pdf':
+            ret_value = new_path
             old_doc = Document.objects.get(document_path=str(doc))
 
             __insert_into('Document', **{'document_name': doc_name,
@@ -169,7 +168,7 @@ def __store_doc_permanent(usr_id: str, doc_name: str, doc_info: str = None) -> N
                     old_img.doc_fk = new_doc
                     old_img.save()
                 old_doc.delete()
-    return new_path
+    return ret_value
 
 
 # ------------------------------
