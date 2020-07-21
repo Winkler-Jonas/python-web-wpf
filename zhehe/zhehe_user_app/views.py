@@ -151,7 +151,7 @@ def new_doc(request):
 
 
 @verified_email_required
-def download(request):
+def download(request, doc):
     """
     ``!important!`` This view is only available for users who validated their email address
 

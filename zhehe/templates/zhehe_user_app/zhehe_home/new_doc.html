@@ -39,8 +39,6 @@
                                 {% else %}
                                     <li data-target="#demo" data-slide-to="{{ image.doc_page_no }}"></li>
                                 {% endif %}
-                                {#                        <li data-target="#demo" data-slide-to="1"></li>#}
-                                {#                        <li data-target="#demo" data-slide-to="2"></li>#}
                             {% endfor %}
                         </ul>
 
@@ -58,23 +56,18 @@
                                              alt="Page {{ image.doc_page_no }}">
                                     </div>
                                 {% endif %}
-                                {#                        <div class="carousel-item">#}
-                                {#                            <img src="{% static 'img/9_1_0.png' %}" class="img-fluid" alt="Chicago">#}
-                                {#                        </div>#}
-                                {#                        <div class="carousel-item">#}
-                                {#                            <img src="{% static 'img/9_3_0.png' %}" class="img-fluid" alt="New York">#}
-                                {#                        </div>#}
                             {% endfor %}
                         </div>
 
                         <!-- Left and right controls -->
-                        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </a>
-                        <a class="carousel-control-next" href="#demo" data-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                        </a>
-
+                        {% if images|length > 1 %}
+                            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#demo" data-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </a>
+                        {% endif %}
                     </div>
                 {% endif %}
             </div>
