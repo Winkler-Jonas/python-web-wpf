@@ -42,14 +42,14 @@ Bootstrap für das Stylen dieser zu verwenden. Die Funktion sucht lediglich nach
 Eindeutig ist und fügt dessen Element die Klasse ``form-control`` hinzu. Dies ist eine Bootstrap CSS-Klasse, um Formen
 zu stylen.
 
-
-
-
 Verfication Email
 -----------------
 
-Die Informationen zu Googles SMTP-Einstellungen können hier nachgelesen werden.
-https://support.google.com/mail/answer/7126229?p=BadCredentials&visit_id=637307618550623949-3936989994&rd=2&authuser=4
+Die Informationen zu Googles SMTP-Einstellungen können `hier nachgelesen`_ werden.
+
+.. _hier nachgelesen: https://support.google.com/mail/answer/7126229?p=BadCredentials&visit_id=637307618550623949-3936989994&rd=2&authuser=4
+
+In der ``settings.py`` sollte die Einrichtung der Email-Adresse dann wie folgt aufgebaut werden.
 
 .. code-block:: python
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -60,11 +60,11 @@ https://support.google.com/mail/answer/7126229?p=BadCredentials&visit_id=6373076
     EMAIL_USE_TLS = True
 
 Des Weiteren muss unter Verwendung dieser Einstellungen im Google-Konto eine Einstellung vorgenommen werden, damit
-Google das versenden der Validierungsmail nicht verhindert und den Login durch Django ermöglicht.
+Google das versenden der Validierungsmail nicht verhindert und den Login durch Django ermöglicht. `Weniger sichere Apps gestatten`_
 
-https://myaccount.google.com/lesssecureapps
+.. _Weniger sichere Apps gestatten: https://myaccount.google.com/lesssecureapps
 
-Manchmal kann es durch Captchas ebenfalls zu Problemen mit dem Google-Konto kommen. Hier muss man ebenfall Einstellungen
+Manchmal kann es `durch Captchas`_ ebenfalls zu Problemen mit dem Google-Konto kommen. Hier muss man ebenfall Einstellungen
 im Konto vornehmen.
 
-https://accounts.google.com/DisplayUnlockCaptcha
+.. _durch Captchas: https://accounts.google.com/DisplayUnlockCaptcha

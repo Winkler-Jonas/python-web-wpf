@@ -6,7 +6,7 @@ Docker - Django
     :align: center
     :target: https://miro.medium.com/max/1400/1*h205DQBt-f7ikKiPpP4Gxg.png
 
-In diesem Projekt wird versucht, Docker in Verbindung mit dem Python Django Framework für das Deployment auf einem
+In diesem Teil wird versucht, Docker in Verbindung mit dem Python Django Framework für das Deployment auf einem
 Server einzurichten. Hierfür werden verschiedene Docker-Container (Nginx, Python, GUnicorn, PostgreSqlDB..) erstellt
 und mit Docker-Compose ein komplettes System zusammen gesetzt, welches Systemunabhängig auf dem Server eines Kunden
 deployed werden kann.
