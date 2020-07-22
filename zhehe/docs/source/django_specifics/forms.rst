@@ -5,10 +5,10 @@ Setup
 -----
 
 Forms dienen der Kommunikation mit Webseiten. Herkömmlich werden diese in einfachem HTML Kontext deklariert und
-designed. Dies führt jedoch oft zu Komplikationen bezüglich der Dahrstellung dieser Forms. Bootstrap bietet hier einen
-sinnvollen Ausweg, um diese Forms für alle Geräte und Browser wie gedacht darzustellen. Das Python-Django Framework
-hingegen bietet hier eigene Lösungen, um Forms zu implementieren, um übertragene Informationen im Backend einfach zu
-verarbeiten sind. Hier kommt das **crispy_forms** package zum Einsatz. Dieses verbindet die Kompatibilität der Django
+designed. Dies führt jedoch oft zu Komplikationen bezüglich der Darstellung dieser Forms. Bootstrap stellt an dieser Stelle einen
+sinnvollen Ausweg zur Verfügung, um diese Forms für alle Geräte und Browser wie gedacht darzustellen. Das Django-Framework
+hingegen bietet in diesem Fall eigene Lösungen, um Forms zu implementieren, um übertragene Informationen im backend einfach zu
+verarbeiten sind. Hier kommt das **crispy_forms** Package zum Einsatz. Dieses verbindet die Kompatibilität der Django
 Forms und die Dahrstellungsüberlegenheit von Bootstrap.
 
 **Crispy Forms** können sowohl unter Anacoonda als auch unter PIP installiert werden.
@@ -36,7 +36,7 @@ Um das Package unter Django zu nutzen, muss es unter **settings.py** zu den Apps
 
 .. _Crispy-Forms-Laden:
 
-Um die crispy forms nun auch in den Templates verwenden zu können, müssen diese wie static files geladen werden.
+Um die crispy forms nun auch in den Templates verwenden zu können, müssen diese wie static Files geladen werden.
 ``{% load crispy_forms_tags %}``
 
 Forms erstellen
@@ -116,7 +116,7 @@ in der **views.py** druchgeführt werden. Hier ein Beispiel, wie dies druchgefü
 template.html
 ^^^^^^^^^^^^^
 
-Anschließend muss die Form nur noch in das Template eingebunden werden. Dies ist vergleichsweiße einfach, da bereits alle
+Anschließend muss die Form nur noch in das Template eingebunden werden. Dies ist vergleichsweise einfach, da bereits alle
 wichtigen Styles übergeben wurden. Um die **crispy_forms** in einem Template nutzen zu können, müssen diese zunächst
 :ref:`geladen<Crispy-Forms-Laden>` werden.
 
@@ -126,8 +126,8 @@ wichtigen Styles übergeben wurden. Um die **crispy_forms** in einem Template nu
         {% crispy form %}
     {% endblock %}
 
-Diese Schreibweiße genügt, um eine vollständige Form in HTML dahrzustellen, es werden keine weiteren Styles oder ähnliches
-benötigt. Diese sehr einfach Implementation ermögicht es dem Entwickler eine erhebliche Zeiterspahrnis, da die Form
+Diese Schreibweise genügt, um eine vollständige Form in HTML darzustellen, es werden keine weiteren Styles oder Ähnliches
+benötigt. Diese sehr unkomplizierte Implementation ermöglicht es dem Entwickler eine erhebliche Zeitersparnis, da die Form
 sehr einfach wiederverwendet werden kann und die Nutzerdaten sicher und einfach abgegriffen werden können.
 
 Weiteres über **Crispy Forms** kann selbstverständlich in der `Dokumentation`_ nachgelesen werden.
