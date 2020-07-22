@@ -33,9 +33,9 @@ Dieser Text steht unter der Creative Commons Lizenz
    :maxdepth: 2
    :numbered:
 
-   project_info
-   django_forms
-   django_allauth
-   docker
-   documentation
-   bibliography
+   project_info/index
+   django_specifics/index
+   documentation/index
+   production/index
+   bibliography/index
+   setup/index
