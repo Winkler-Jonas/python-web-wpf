@@ -27,17 +27,17 @@ Der Output des Befehls sollte in etwa so aussehen.
     :align: center
 
 Ganz links sehen Sie die ``ID`` des Containers und in der zweiten Spalte den ``Namen`` des Images.
-Wecheln Sie jetzt in den Container mit dem Namen **python-web-wpf-zhehe** mit folgendem Befehl.
-Ändern Sie die ID des Containers ensprechend Ihrer ``docker ps`` Ausgabe.
+Wechseln Sie jetzt in den Container mit dem Namen **python-web-wpf-zhehe** mit folgendem Befehl.
+Ändern Sie die ID des Containers entsprechend Ihrer ``docker ps`` Ausgabe.
 
 .. code-block:: bash
 
     $ docker exec -it e430143a6129 bash
 
-Sie befinden sich nun innerhalb des Docker-Containers. Führen Sie nun nur die ``init.sh`` aus
+Sie befinden sich nun innerhalb des Docker-Containers. Führen Sie jetzt nur die ``init.sh`` aus
 und füllen Sie die Daten für den Superuser aus.
 
-Um die Initialisierung innherhalb des Docker-Containers zu vereinfachen habe ich ein Skript ``init.sh`` erstellt, welches
+Um die Initialisierung innerhalb des Docker-Containers zu vereinfachen habe ich ein Skript ``init.sh`` erstellt, welches
 die verschiedenen Operationen durchführt. Das Skript arbeitet folgende Schritte ab.
 
 ..  admonition:: python manage.py migrate
