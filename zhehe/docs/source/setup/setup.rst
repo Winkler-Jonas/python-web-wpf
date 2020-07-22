@@ -34,6 +34,9 @@ Wecheln Sie jetzt in den Container mit dem Namen **python-web-wpf-zhehe** mit fo
 
     $ docker exec -it e430143a6129 bash
 
+Sie befinden sich nun innerhalb des Docker-Containers. Führen Sie nun nur die ``init.sh`` aus
+und füllen Sie die Daten für den Superuser aus.
+
 Um die Initialisierung innherhalb des Docker-Containers zu vereinfachen habe ich ein Skript ``init.sh`` erstellt, welches
 die verschiedenen Operationen durchführt. Das Skript arbeitet folgende Schritte ab.
 
@@ -56,3 +59,4 @@ die verschiedenen Operationen durchführt. Das Skript arbeitet folgende Schritte
     | Dieses Kommando verschiebt alle statischen Dateien in den in der ``settings.py`` angegebenen
     | ``STATIC_ROOT`` Ordner, damit der Webserver diese zur Verfügung stellen kann.
 
+Nach der Ausführung der Initialisierung kann die Webseite nun unter ``0.0.0.0:8080`` aufgefunden und ausgeführt werden.
