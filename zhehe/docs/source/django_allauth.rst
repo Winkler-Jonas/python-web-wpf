@@ -52,6 +52,7 @@ Die Informationen zu Googles SMTP-Einstellungen können hier nachgelesen werden.
 https://support.google.com/mail/answer/7126229?p=BadCredentials&visit_id=637307618550623949-3936989994&rd=2&authuser=4
 
 .. code-block:: python
+
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587

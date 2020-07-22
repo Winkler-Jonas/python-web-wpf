@@ -134,3 +134,10 @@ Weiteres über **Crispy Forms** kann selbstverständlich in der `Dokumentation`_
 
 
 .. _Dokumentation: https://django-crispy-forms.readthedocs.io/en/latest/
+
+Fazit
+-----
+
+Leider ist die Erweiterung Crispy_Forms nicht ganz ausgereift. In manchen Fällen bietet es sich unter Umständen an diese
+zu verwenden. Jedoch um ein allgemeingültiges Konzept mit Django zu implementieren sind Crispy_Forms ungeeignet, da
+Sie die Möglichkeiten der Entwickler im Gegensatz zur herkömmlichen Django-Form Implementierung stark einschränken.
